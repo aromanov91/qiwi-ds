@@ -8,7 +8,9 @@ import designSystem from '../designSystem';
 import type { DesignSystem } from '../designSystem';
 import PaymentBox from '../components/payment/paymentBox';
 import ButtonsBox from '../component-pages/buttonsBox';
-import Header from '../components/header/ds-header'
+import TypographyPage from '../component-pages/TypographyPage';
+import Header from '../components/header/ds-header';
+
 
 const Components = () => {
   return (
@@ -21,6 +23,26 @@ const Components = () => {
       flexWrap: 'wrap',
       
     }}>
+
+      <Artboard name="Typography" style={{
+        width: 1280,
+        height: 900,
+        marginBottom: designSystem.spacing * 4,
+        backgroundColor: designSystem.colors.Background,
+        alignItems: 'center',
+        justifyContent: 'top',
+        margin: designSystem.spacing * 10,
+        
+      }}>
+        <Header
+          logo = "Typography"
+        >
+        </Header>
+        <TypographyPage
+        >
+        </TypographyPage>
+
+      </Artboard>
 
       <Artboard name="Buttons" style={{
         width: 1280,
@@ -41,7 +63,6 @@ const Components = () => {
         </ButtonsBox>
 
       </Artboard>
-
 
       <Artboard name="Text fields" style={{
         width: 1280,

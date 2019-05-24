@@ -855,6 +855,201 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.shadows = exports.fonts = exports.space = exports.spacing = exports.colors = undefined;
+
+var _colors$colors$fonts$;
+
+var _processColor = __webpack_require__(224);
+
+var _processColor2 = _interopRequireDefault(_processColor);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Importing dependencies
+
+
+// Defyining Colors
+var colors = exports.colors = {
+  Background: '#F5F5F5',
+  BackgroundSecondary: '#FFF',
+  BackgroundWarning: '#555',
+  White: '#FFF',
+  Black: '#000',
+  Gray: '#999',
+  GrayLine: '#CCC',
+  GrayDivider: '#E6E6E6',
+  Orange: '#FF8C00',
+  Link: '#0055BB',
+  Success: '#4BBD5C',
+  Error: '#D0021B',
+  Graphite: '#2D3540',
+  Text: '#000',
+  TextSecondary: '#666'
+};
+
+// Defyining Fonts styles and variables
+var typeSizes = [32, 30, 26, 20, 18, 16, 13];
+
+var spacing = exports.spacing = 4;
+
+var space = exports.space = {
+  xxxs: '4',
+  xxs: '8',
+  xs: '12',
+  s: '16',
+  m: '24',
+  l: '32',
+  xl: '48',
+  xxl: '96',
+  xxxl: '144'
+};
+
+var fontFamilies = {
+  display: 'Museo Sans Cyrl',
+  body: 'Museo Sans Cyrl'
+};
+
+var fontWeights = {
+  regular: '300',
+  bold: '500',
+  semiBold: '700',
+  extraBold: '900'
+};
+
+var fonts = exports.fonts = {
+  TitleH1: {
+    color: colors.Text,
+    fontSize: typeSizes[0],
+    fontFamily: fontFamilies.display,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: 36,
+    opacity: 0.9
+  },
+  TitleH2: {
+    color: colors.Text,
+    fontSize: typeSizes[1],
+    fontFamily: fontFamilies.display,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: 36
+  },
+  TitleH3: {
+    color: colors.Text,
+    fontSize: typeSizes[2],
+    fontFamily: fontFamilies.display,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: 32
+  },
+  TitleH4: {
+    color: colors.Text,
+    fontSize: typeSizes[3],
+    fontFamily: fontFamilies.display,
+    fontWeight: fontWeights.semiBoldBold,
+    lineHeight: 24
+  },
+  TitleH5: {
+    color: colors.Text,
+    fontSize: typeSizes[4],
+    fontFamily: fontFamilies.display,
+    fontWeight: fontWeights.semiBoldBold,
+    lineHeight: 24
+  },
+  TitleH6: {
+    color: colors.Text,
+    fontSize: typeSizes[5],
+    fontFamily: fontFamilies.display,
+    fontWeight: fontWeights.semiBold,
+    lineHeight: 24
+  },
+  TitleH7: {
+    color: colors.Text,
+    fontSize: typeSizes[6],
+    fontFamily: fontFamilies.display,
+    fontWeight: fontWeights.semiBold,
+    lineHeight: 16,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase'
+  },
+  Body: {
+    color: colors.Text,
+    fontSize: typeSizes[5],
+    fontFamily: fontFamilies.body,
+    fontWeight: fontWeights.regular,
+    lineHeight: 24,
+    marginBottom: 4
+  },
+  LeadBody: {
+    color: colors.Text,
+    fontSize: typeSizes[4],
+    fontFamily: fontFamilies.body,
+    fontWeight: fontWeights.regular,
+    lineHeight: 24,
+    marginBottom: 4
+
+  },
+  SmallBody: {
+    color: colors.TextSecondary,
+    fontSize: typeSizes[6],
+    fontFamily: fontFamilies.body,
+    fontWeight: fontWeights.regular,
+    lineHeight: 20
+  },
+  Field: {
+    color: colors.TextSecondary,
+    fontSize: 20,
+    fontFamily: fontFamilies.body,
+    fontWeight: fontWeights.regular,
+    lineHeight: 24
+  },
+  Label: {
+    color: colors.TextSecondary,
+    fontSize: typeSizes[6],
+    fontFamily: fontFamilies.body,
+    fontWeight: fontWeights.regular,
+    lineHeight: 16
+  },
+  AscendedButtonText: {
+    color: colors.White,
+    fontSize: typeSizes[5],
+    fontFamily: fontFamilies.body,
+    fontWeight: fontWeights.semiBold,
+    lineHeight: 24
+  },
+
+  SimpleButtonText: {
+    color: colors.Black,
+    fontSize: typeSizes[5],
+    fontFamily: fontFamilies.body,
+    fontWeight: fontWeights.semiBold,
+    lineHeight: 24
+  }
+
+};
+
+var shadows = exports.shadows = {
+  ShadowZ1: {
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+    shadowOpacity: 0.08
+  }
+};
+
+// Exporting
+exports['default'] = (_colors$colors$fonts$ = {
+  colors: Object.keys(colors).reduce(function (acc, name) {
+    return Object.assign({}, acc, _defineProperty({}, name, (0, _processColor2['default'])(colors[name])));
+  }, {})
+}, _defineProperty(_colors$colors$fonts$, 'colors', colors), _defineProperty(_colors$colors$fonts$, 'fonts', fonts), _defineProperty(_colors$colors$fonts$, 'spacing', spacing), _defineProperty(_colors$colors$fonts$, 'shadows', shadows), _defineProperty(_colors$colors$fonts$, 'space', space), _colors$colors$fonts$);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.generateID = generateID;
 exports.makeSymbolMaster = exports.makeSymbolInstance = exports.makeJSONDataReference = exports.makeRect = exports.makeImageFill = exports.makeColorFill = exports.makeColorFromCSS = void 0;
 
@@ -1029,192 +1224,6 @@ var makeSymbolMaster = function makeSymbolMaster(frame, symbolID, name) {
 exports.makeSymbolMaster = makeSymbolMaster;
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.shadows = exports.fonts = exports.space = exports.spacing = exports.colors = undefined;
-
-var _colors$colors$fonts$;
-
-var _processColor = __webpack_require__(224);
-
-var _processColor2 = _interopRequireDefault(_processColor);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Importing dependencies
-
-
-// Defyining Colors
-var colors = exports.colors = {
-  Background: '#F5F5F5',
-  BackgroundSecondary: '#FFF',
-  BackgroundWarning: '#555',
-  White: '#FFF',
-  Black: '#000',
-  Gray: '#999',
-  GrayLine: '#CCC',
-  GrayDivider: '#E6E6E6',
-  Orange: '#FF8C00',
-  Link: '#0055BB',
-  Success: '#4BBD5C',
-  Error: '#D0021B',
-  Graphite: '#2D3540',
-  Text: '#000',
-  TextSecondary: '#666'
-};
-
-// Defyining Fonts styles and variables
-var typeSizes = [32, 30, 26, 20, 18, 16, 13];
-
-var spacing = exports.spacing = 4;
-
-var space = exports.space = {
-  xxxs: '4',
-  xxs: '8',
-  xs: '12',
-  s: '16',
-  m: '24',
-  l: '32',
-  xl: '48',
-  xxl: '96',
-  xxxl: '144'
-};
-
-var fontFamilies = {
-  display: 'Museo Sans Cyrl',
-  body: 'Museo Sans Cyrl'
-};
-
-var fontWeights = {
-  regular: '300',
-  bold: '500',
-  semiBold: '700',
-  extraBold: '900'
-};
-
-var fonts = exports.fonts = {
-  TitleH1: {
-    color: colors.Text,
-    fontSize: typeSizes[0],
-    fontFamily: fontFamilies.display,
-    fontWeight: fontWeights.extraBold,
-    lineHeight: 36,
-    opacity: 0.9
-  },
-  TitleH2: {
-    color: colors.Text,
-    fontSize: typeSizes[1],
-    fontFamily: fontFamilies.display,
-    fontWeight: fontWeights.extraBold,
-    lineHeight: 36
-  },
-  TitleH3: {
-    color: colors.Text,
-    fontSize: typeSizes[2],
-    fontFamily: fontFamilies.display,
-    fontWeight: fontWeights.extraBold,
-    lineHeight: 32
-  },
-  TitleH4: {
-    color: colors.Text,
-    fontSize: typeSizes[3],
-    fontFamily: fontFamilies.display,
-    fontWeight: fontWeights.semiBoldBold,
-    lineHeight: 24
-  },
-  TitleH5: {
-    color: colors.Text,
-    fontSize: typeSizes[4],
-    fontFamily: fontFamilies.display,
-    fontWeight: fontWeights.semiBoldBold,
-    lineHeight: 24
-  },
-  TitleH6: {
-    color: colors.Text,
-    fontSize: typeSizes[5],
-    fontFamily: fontFamilies.display,
-    fontWeight: fontWeights.semiBold,
-    lineHeight: 24
-  },
-  TitleH7: {
-    color: colors.Text,
-    fontSize: typeSizes[6],
-    fontFamily: fontFamilies.display,
-    fontWeight: fontWeights.semiBold,
-    lineHeight: 16,
-    letterSpacing: 1.5,
-    textTransform: 'uppercase'
-  },
-  Body: {
-    color: colors.Text,
-    fontSize: typeSizes[5],
-    fontFamily: fontFamilies.body,
-    fontWeight: fontWeights.regular,
-    lineHeight: 24,
-    marginBottom: 4
-  },
-  LeadBody: {
-    color: colors.Text,
-    fontSize: typeSizes[4],
-    fontFamily: fontFamilies.body,
-    fontWeight: fontWeights.regular,
-    lineHeight: 24,
-    marginBottom: 4
-
-  },
-  SmallBody: {
-    color: colors.TextSecondary,
-    fontSize: typeSizes[6],
-    fontFamily: fontFamilies.body,
-    fontWeight: fontWeights.regular,
-    lineHeight: 20
-  },
-  Field: {
-    color: colors.TextSecondary,
-    fontSize: 20,
-    fontFamily: fontFamilies.body,
-    fontWeight: fontWeights.regular,
-    lineHeight: 24
-  },
-  Label: {
-    color: colors.TextSecondary,
-    fontSize: typeSizes[6],
-    fontFamily: fontFamilies.body,
-    fontWeight: fontWeights.regular,
-    lineHeight: 16
-  },
-  AscendedButtonText: {
-    color: colors.White,
-    fontSize: typeSizes[5],
-    fontFamily: fontFamilies.body,
-    fontWeight: fontWeights.semiBold,
-    lineHeight: 24
-  }
-
-};
-
-var shadows = exports.shadows = {
-  ShadowZ1: {
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    shadowOpacity: 0.08
-  }
-};
-// Exporting
-exports['default'] = (_colors$colors$fonts$ = {
-  colors: Object.keys(colors).reduce(function (acc, name) {
-    return Object.assign({}, acc, _defineProperty({}, name, (0, _processColor2['default'])(colors[name])));
-  }, {})
-}, _defineProperty(_colors$colors$fonts$, 'colors', colors), _defineProperty(_colors$colors$fonts$, 'fonts', fonts), _defineProperty(_colors$colors$fonts$, 'spacing', spacing), _defineProperty(_colors$colors$fonts$, 'shadows', shadows), _defineProperty(_colors$colors$fonts$, 'space', space), _colors$colors$fonts$);
-
-/***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1304,7 +1313,7 @@ var _findFont = __webpack_require__(130);
 
 var _getSketchVersion = __webpack_require__(133);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 // We need native macOS fonts and colors for these hacks so import the old utils
 var TEXT_ALIGN = {
@@ -2263,7 +2272,7 @@ var _sketchappJsonPlugin = __webpack_require__(17);
 
 var _stylesheet = __webpack_require__(11);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var _ViewStylePropTypes = __webpack_require__(19);
 
@@ -2549,7 +2558,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -2575,13 +2584,14 @@ var RegularButton = function RegularButton(_ref) {
       } },
     _react2['default'].createElement(
       _reactSketchapp.Text,
-      { style: [_designSystem2['default'].fonts.AscendedButtonText, {
+      { name: 'ButtonSymle', style: [_designSystem2['default'].fonts.AscendedButtonText, {
           alignSelf: "center"
         }] },
       txt
     )
   );
 };
+
 // Here we export the element as "regularButton"
 // Importing the necessary dependencies
 exports['default'] = RegularButton;
@@ -3051,7 +3061,7 @@ exports.makeShapeGroup = exports.makeRectShapeLayer = exports.makeShapePath = ex
 
 var _hacksForJSONImpl = __webpack_require__(9);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -4085,7 +4095,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -4727,7 +4737,7 @@ exports.makeHorizontalBorder = exports.makeVerticalBorder = exports.makeShadow =
 
 var _sketchConstants = __webpack_require__(18);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var _shapeLayers = __webpack_require__(33);
 
@@ -4865,7 +4875,7 @@ var _sketchConstants = __webpack_require__(18);
 
 var _SketchRenderer2 = __webpack_require__(15);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var _shapeLayers = __webpack_require__(33);
 
@@ -39253,7 +39263,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var _SketchRenderer2 = __webpack_require__(15);
 
@@ -39329,7 +39339,7 @@ exports.default = void 0;
 
 var _hacksForJSONImpl = __webpack_require__(9);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var layerGroup = function layerGroup(x, y, width, height, opacity, resizingConstraint) {
   return {
@@ -39393,7 +39403,7 @@ var _SketchRenderer2 = __webpack_require__(15);
 
 var _hacksForJSONImpl = __webpack_require__(9);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var _shapeLayers = __webpack_require__(33);
 
@@ -39736,7 +39746,7 @@ var _SketchRenderer2 = __webpack_require__(15);
 
 var _textLayers = __webpack_require__(145);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var _TextStyles = __webpack_require__(59);
 
@@ -39826,7 +39836,7 @@ exports.default = void 0;
 
 var _hacksForJSONImpl = __webpack_require__(9);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var makeTextLayer = function makeTextLayer(frame, name, textNodes, resizingConstraint) {
   return {
@@ -39963,7 +39973,7 @@ exports.default = void 0;
 
 var _SketchRenderer2 = __webpack_require__(15);
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var _symbol = __webpack_require__(22);
 
@@ -40176,7 +40186,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _models = __webpack_require__(6);
+var _models = __webpack_require__(7);
 
 var _SketchRenderer2 = __webpack_require__(15);
 
@@ -45423,7 +45433,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48295,7 +48305,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48365,7 +48375,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48413,7 +48423,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48485,7 +48495,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48497,11 +48507,17 @@ var _buttonsBox = __webpack_require__(234);
 
 var _buttonsBox2 = _interopRequireDefault(_buttonsBox);
 
-var _dsHeader = __webpack_require__(235);
+var _TypographyPage = __webpack_require__(237);
+
+var _TypographyPage2 = _interopRequireDefault(_TypographyPage);
+
+var _dsHeader = __webpack_require__(236);
 
 var _dsHeader2 = _interopRequireDefault(_dsHeader);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
 
 var Components = function Components() {
   return _react2['default'].createElement(
@@ -48515,6 +48531,23 @@ var Components = function Components() {
         flexWrap: 'wrap'
 
       } },
+    _react2['default'].createElement(
+      _reactSketchapp.Artboard,
+      { name: 'Typography', style: {
+          width: 1280,
+          height: 900,
+          marginBottom: _designSystem2['default'].spacing * 4,
+          backgroundColor: _designSystem2['default'].colors.Background,
+          alignItems: 'center',
+          justifyContent: 'top',
+          margin: _designSystem2['default'].spacing * 10
+
+        } },
+      _react2['default'].createElement(_dsHeader2['default'], {
+        logo: 'Typography'
+      }),
+      _react2['default'].createElement(_TypographyPage2['default'], null)
+    ),
     _react2['default'].createElement(
       _reactSketchapp.Artboard,
       { name: 'Buttons', style: {
@@ -48554,7 +48587,6 @@ var Components = function Components() {
     )
   );
 };
-/* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
 
 exports['default'] = Components;
 
@@ -48575,7 +48607,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48642,7 +48674,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48711,7 +48743,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48786,7 +48818,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48794,28 +48826,33 @@ var _regularButton = __webpack_require__(24);
 
 var _regularButton2 = _interopRequireDefault(_regularButton);
 
-var _providerHeader = __webpack_require__(232);
-
-var _providerHeader2 = _interopRequireDefault(_providerHeader);
+var _Buttons = __webpack_require__(235);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-// Component design
-var ButtonsBox = function ButtonsBox(_ref) {
-  var title = _ref.title,
-      description = _ref.description,
-      children = _ref.children;
+var ButtonsBox = function ButtonsBox() {
   return _react2['default'].createElement(
     _reactSketchapp.View,
-    { style: [_designSystem2['default'].shadows.ShadowZ1, {
-        width: 680,
-        backgroundColor: _designSystem2['default'].colors.BackgroundSecondary,
-        paddingTop: 44,
-        paddingRight: 44,
-        paddingBottom: 48,
-        paddingLeft: 44,
-        borderRadius: 10
-      }] },
+    { style: {
+        alignSelf: 'flex-start',
+        // justifyContent: 'top',
+        // width: 1120,
+        paddingTop: 60,
+        paddingRight: 80,
+        paddingBottom: 96,
+        paddingLeft: 96
+
+      } },
+    _react2['default'].createElement(
+      _Buttons.SimpleButtonAccent,
+      null,
+      'dfd'
+    ),
+    _react2['default'].createElement(
+      _Buttons.SimpleButtonNormal,
+      null,
+      'dfd'
+    ),
     _react2['default'].createElement(_regularButton2['default'], { txt: 'Button' })
   );
 };
@@ -48834,6 +48871,7 @@ exports['default'] = ButtonsBox;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.SimpleButtonNormal = exports.SimpleButtonAccent = exports.border = undefined;
 
 var _react = __webpack_require__(0);
 
@@ -48841,7 +48879,132 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(7);
+var _designSystem = __webpack_require__(6);
+
+var _designSystem2 = _interopRequireDefault(_designSystem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var border = exports.border = {
+  width: 1,
+  color: _designSystem2['default'].colors.GrayLine
+};
+
+var buttonSizes = {
+  Accent: {
+    height: 60,
+    radius: 30,
+    paddingX: 36,
+    paddingY: 18,
+    minWidth: 200
+  },
+  Normal: {
+    height: 48,
+    radius: 24,
+    paddingX: 28,
+    paddingY: 18,
+    minWidth: 148
+  },
+  Minor: {
+    height: 40,
+    radius: 20,
+    paddingX: 24,
+    paddingY: 18,
+    minWidth: 100
+  }
+};
+
+var buttonColor = {
+  Brand: {
+    color: _designSystem2['default'].colors.Brand,
+    textColor: _designSystem2['default'].colors.White
+  },
+  Simple: {
+    color: _designSystem2['default'].colors.Brand,
+    borderColor: _designSystem2['default'].colors.borderColor,
+    textColor: _designSystem2['default'].colors.Black
+  }
+};
+
+var SimpleButtonAccent = exports.SimpleButtonAccent = function SimpleButtonAccent() {
+  return _react2['default'].createElement(
+    _reactSketchapp.View,
+    { name: 'Button Base', style: {
+        alignSelf: 'flex-start',
+        backgroundColor: buttonColor.Simple.color,
+        borderColor: border.color,
+        borderWidth: border.width,
+        paddingLeft: buttonSizes.Accent.paddingX,
+        paddingRight: buttonSizes.Accent.paddingX,
+        paddingBottom: buttonSizes.Accent.paddingY,
+        paddingTop: buttonSizes.Accent.paddingY,
+        borderRadius: buttonSizes.Accent.radius,
+        minWidth: buttonSizes.Accent.minWidth,
+        minHeight: buttonSizes.Accent.height
+      } },
+    _react2['default'].createElement(
+      _reactSketchapp.Text,
+      { name: 'ButtonTitle', style: [_designSystem2['default'].fonts.SimpleButtonText, {
+          alignSelf: "center"
+        }] },
+      'Button'
+    )
+  );
+};
+
+(0, _reactSketchapp.makeSymbol)(SimpleButtonAccent, 'Buttons/Simple/Accent');
+
+var SimpleButtonNormal = exports.SimpleButtonNormal = function SimpleButtonNormal() {
+  return _react2['default'].createElement(
+    _reactSketchapp.View,
+    { name: 'Button Base', style: {
+        alignSelf: 'flex-start',
+        backgroundColor: buttonColor.Simple.color,
+        borderColor: border.color,
+        borderWidth: border.width,
+        paddingLeft: buttonSizes.Normal.paddingX,
+        paddingRight: buttonSizes.Normal.paddingX,
+        paddingBottom: buttonSizes.Normal.paddingY,
+        paddingTop: buttonSizes.Normal.paddingY,
+        borderRadius: buttonSizes.Normal.radius,
+        minWidth: buttonSizes.Normal.minWidth,
+        minHeight: buttonSizes.Normal.height
+      } },
+    _react2['default'].createElement(
+      _reactSketchapp.Text,
+      { name: 'ButtonTitle', style: [_designSystem2['default'].fonts.SimpleButtonText, {
+          alignSelf: "center"
+        }] },
+      'Button'
+    )
+  );
+};
+
+(0, _reactSketchapp.makeSymbol)(SimpleButtonNormal, 'Buttons/Simple/Normal');
+
+// Here we export the element as "regularButton"
+exports['default'] = { SimpleButtonAccent: SimpleButtonAccent,
+  SimpleButtonNormal: SimpleButtonNormal
+};
+
+/***/ }),
+/* 236 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSketchapp = __webpack_require__(5);
+
+var _designSystem = __webpack_require__(6);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48877,6 +49040,187 @@ var DSHeader = function DSHeader(_ref) {
 // Exporting
 // Dependencies
 exports['default'] = DSHeader;
+
+/***/ }),
+/* 237 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSketchapp = __webpack_require__(5);
+
+var _Desktop = __webpack_require__(238);
+
+var _Desktop2 = _interopRequireDefault(_Desktop);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var TypographyPage = function TypographyPage() {
+  return _react2['default'].createElement(_reactSketchapp.View, { style: {
+      alignSelf: 'flex-start',
+      paddingTop: 60,
+      paddingRight: 80,
+      paddingBottom: 96,
+      paddingLeft: 96
+    } })
+
+  // <Section title="Type Styles">
+  // {Object.keys(system.fonts).map(name => (
+  //   <TypeSpecimen key={name} name={name} style={TextStyles.get(name)} />
+  // ))}
+  // </Section>
+
+
+  ;
+};
+
+// Exporting
+// Dependencies
+exports['default'] = TypographyPage;
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Heading = undefined;
+
+var _processColor = __webpack_require__(224);
+
+var _processColor2 = _interopRequireDefault(_processColor);
+
+var _pijma = __webpack_require__(239);
+
+var _pijma2 = _interopRequireDefault(_pijma);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// Title
+// Importing dependencies
+var SizesTitle = [48, 56];
+var HeightTitle = [40, 48];
+
+// Heading
+var SizesHeading = [32, 28, 24, 20, 16];
+var LineHeightHeading = [36, 32, 28, 24, 20];
+
+// CAPTION 
+var SizesCaption = [14];
+var LineHeightCaption = [20];
+
+// Body
+var SizesBody = [20, 16, 14];
+var LineHeightBody = [32, 24, 20];
+var LineHeightBodyCompact = [28, 20, 16];
+
+var fontFamilies = {
+  'default': 'Museo Sans Cyrl'
+};
+
+var fontWeights = {
+  regular: '300',
+  bold: '500',
+  semiBold: '700',
+  extraBold: '900'
+};
+
+var Heading = exports.Heading = {
+  '1': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesTitle[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[0]
+  },
+  '2': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesTitle[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[1]
+  }
+};
+
+// Exporting
+exports['default'] = {
+  Heading: Heading
+};
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.space = exports.spacing = exports.colors = undefined;
+
+var _colors$colors$spacin;
+
+var _processColor = __webpack_require__(224);
+
+var _processColor2 = _interopRequireDefault(_processColor);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Importing dependencies
+
+
+// Defyining Colors
+var colors = exports.colors = {
+  BrandColor: '#FF8C00',
+  BrandColorHover: '#FF8200',
+  Link: '#0055BB',
+  Green: '#7ED321',
+  Yellow: '#FFB800',
+  Orange: '#FF8C00',
+  Red: '#D0021B',
+  Black: '#000',
+  Gray1: '#666',
+  Gray2: '#999',
+  Gray3: '#CCC',
+  Gray4: '#E6E6E6',
+  Gray5: '#F5F5F5',
+  White: '#FFF',
+  Graphite: '#2D3540'
+};
+
+var spacing = exports.spacing = 4;
+
+var space = exports.space = {
+  xxxs: '4',
+  xxs: '8',
+  xs: '12',
+  s: '16',
+  m: '24',
+  l: '32',
+  xl: '48',
+  xxl: '96',
+  xxxl: '144'
+
+  // Exporting
+};exports['default'] = (_colors$colors$spacin = {
+  colors: Object.keys(colors).reduce(function (acc, name) {
+    return Object.assign({}, acc, _defineProperty({}, name, (0, _processColor2['default'])(colors[name])));
+  }, {})
+}, _defineProperty(_colors$colors$spacin, 'colors', colors), _defineProperty(_colors$colors$spacin, 'spacing', spacing), _defineProperty(_colors$colors$spacin, 'space', space), _colors$colors$spacin);
 
 /***/ })
 /******/ ]);

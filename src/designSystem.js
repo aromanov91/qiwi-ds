@@ -38,6 +38,8 @@ export const space = {
   xxxl: '144'
 }
 
+
+
 const fontFamilies = {
   display: 'Museo Sans Cyrl',
   body: 'Museo Sans Cyrl',
@@ -148,6 +150,14 @@ export const fonts = {
     fontWeight: fontWeights.semiBold,
     lineHeight: 24,
   },
+
+  SimpleButtonText: {
+    color: colors.Black,
+    fontSize: typeSizes[5],
+    fontFamily: fontFamilies.body,
+    fontWeight: fontWeights.semiBold,
+    lineHeight: 24,
+  },
   
 };
 
@@ -158,6 +168,9 @@ export const shadows = {
     shadowOpacity: 0.08,
   },
 };
+
+
+
 // Exporting
 export default {
   colors: Object.keys(colors).reduce(

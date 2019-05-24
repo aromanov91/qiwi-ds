@@ -1,6 +1,6 @@
 // Importing the necessary dependencies
 import React from 'react';
-import { View, Text } from 'react-sketchapp';
+import { View, Text, makeSymbol } from 'react-sketchapp';
 import designSystem from '../../../designSystem';
 import type { DesignSystem } from '../../../designSystem';
 
@@ -22,12 +22,13 @@ const RegularButton = ({txt, children}: P) => (
     minWidth: 120,
     
   }}>
-    <Text style={[designSystem.fonts.AscendedButtonText,{
+    <Text name="ButtonSymle" style={[designSystem.fonts.AscendedButtonText,{
       alignSelf: "center",
       }]}>
         {txt}
     </Text>
   </View>
 );
+
 // Here we export the element as "regularButton"
 export default RegularButton;
