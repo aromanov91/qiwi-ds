@@ -7927,13 +7927,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _login = __webpack_require__(223);
+var _Desktop = __webpack_require__(238);
 
-var _login2 = _interopRequireDefault(_login);
-
-var _signUp = __webpack_require__(228);
-
-var _signUp2 = _interopRequireDefault(_signUp);
+var _Desktop2 = _interopRequireDefault(_Desktop);
 
 var _components = __webpack_require__(230);
 
@@ -7941,14 +7937,16 @@ var _components2 = _interopRequireDefault(_components);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = function (context) {
-
-  (0, _reactSketchapp.render)(_react2['default'].createElement(_components2['default'], null), context.document.currentPage());
-};
-//import designSystem from './designSystem';
-//import type { DesignSystem } from './designSystem';
-
 /* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
+
+exports['default'] = function () {
+  _reactSketchapp.TextStyles.create({
+    context: context,
+    clearExistingStyles: true
+  }, _Desktop2['default'].Heading, _Desktop2['default'].HeadingCenter);
+
+  (0, _reactSketchapp.render)(_react2['default'].createElement(_components2['default'], { system: _Desktop2['default'] }), context.document.currentPage());
+};
 
 /***/ }),
 /* 107 */
@@ -45413,66 +45411,7 @@ _defineProperty(Use, "propTypes", _objectSpread({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 223 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactSketchapp = __webpack_require__(5);
-
-var _designSystem = __webpack_require__(6);
-
-var _designSystem2 = _interopRequireDefault(_designSystem);
-
-var _loginBox = __webpack_require__(227);
-
-var _loginBox2 = _interopRequireDefault(_loginBox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var Login = function Login() {
-  return _react2['default'].createElement(
-    _reactSketchapp.Artboard,
-    { name: 'login', style: {
-        width: 1440,
-        height: 900,
-        marginBottom: _designSystem2['default'].spacing * 4,
-        backgroundColor: _designSystem2['default'].colors.Sur,
-        alignItems: 'center',
-        justifyContent: 'center'
-      } },
-    _react2['default'].createElement(
-      _loginBox2['default'],
-      {
-        title: 'Hello!',
-        description: 'Please, before to continue login with your account. If you don\'t have an account Sign In here.'
-      },
-      _react2['default'].createElement(
-        _reactSketchapp.Text,
-        null,
-        'Hello'
-      )
-    )
-  );
-};
-/* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
-
-exports['default'] = Login;
-
-/***/ }),
+/* 223 */,
 /* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -48289,192 +48228,9 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 227 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactSketchapp = __webpack_require__(5);
-
-var _designSystem = __webpack_require__(6);
-
-var _designSystem2 = _interopRequireDefault(_designSystem);
-
-var _input = __webpack_require__(45);
-
-var _input2 = _interopRequireDefault(_input);
-
-var _regularButton = __webpack_require__(24);
-
-var _regularButton2 = _interopRequireDefault(_regularButton);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-// Component design
-var LoginBox = function LoginBox(_ref) {
-  var title = _ref.title,
-      description = _ref.description,
-      children = _ref.children;
-  return _react2['default'].createElement(
-    _reactSketchapp.View,
-    { style: {
-        width: 520,
-        backgroundColor: _designSystem2['default'].colors.White,
-        padding: 60,
-        borderRadius: 5
-      } },
-    _react2['default'].createElement(
-      _reactSketchapp.Text,
-      { style: [_designSystem2['default'].fonts.Headline, {
-          marginBottom: 20
-        }] },
-      title
-    ),
-    _react2['default'].createElement(
-      _reactSketchapp.Text,
-      { style: _designSystem2['default'].fonts.Body },
-      description
-    ),
-    _react2['default'].createElement(_input2['default'], { placeholder: 'Email address' }),
-    _react2['default'].createElement(_input2['default'], { placeholder: 'Password' }),
-    _react2['default'].createElement(_regularButton2['default'], { txt: 'Confirm Login' })
-  );
-};
-
-// Exporting
-// Dependencies
-exports['default'] = LoginBox;
-
-/***/ }),
-/* 228 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactSketchapp = __webpack_require__(5);
-
-var _designSystem = __webpack_require__(6);
-
-var _designSystem2 = _interopRequireDefault(_designSystem);
-
-var _signUpBox = __webpack_require__(229);
-
-var _signUpBox2 = _interopRequireDefault(_signUpBox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var SignUp = function SignUp() {
-  return _react2['default'].createElement(
-    _reactSketchapp.Artboard,
-    { name: 'SignUp', style: {
-        width: 1440,
-        height: 900,
-        marginBottom: _designSystem2['default'].spacing * 4,
-        backgroundColor: _designSystem2['default'].colors.Sur,
-        alignItems: 'center',
-        justifyContent: 'center'
-      } },
-    _react2['default'].createElement(_signUpBox2['default'], {
-      title: 'Welcome!',
-      description: 'Hello stranger, do you want to continue? Please fill the following fields. Thanks!'
-    })
-  );
-};
-/* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
-
-exports['default'] = SignUp;
-
-/***/ }),
-/* 229 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactSketchapp = __webpack_require__(5);
-
-var _designSystem = __webpack_require__(6);
-
-var _designSystem2 = _interopRequireDefault(_designSystem);
-
-var _input = __webpack_require__(45);
-
-var _input2 = _interopRequireDefault(_input);
-
-var _regularButton = __webpack_require__(24);
-
-var _regularButton2 = _interopRequireDefault(_regularButton);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-// Component design
-var SignUpBox = function SignUpBox(_ref) {
-  var title = _ref.title,
-      description = _ref.description,
-      children = _ref.children;
-  return _react2['default'].createElement(
-    _reactSketchapp.View,
-    { style: {
-        width: 520,
-        backgroundColor: _designSystem2['default'].colors.White,
-        padding: 60,
-        borderRadius: 5
-      } },
-    _react2['default'].createElement(
-      _reactSketchapp.Text,
-      { style: [_designSystem2['default'].fonts.Headline, {
-          marginBottom: 20
-        }] },
-      title
-    ),
-    _react2['default'].createElement(
-      _reactSketchapp.Text,
-      { style: _designSystem2['default'].fonts.Body },
-      description
-    ),
-    _react2['default'].createElement(_input2['default'], { placeholder: 'Email address' }),
-    _react2['default'].createElement(_input2['default'], { placeholder: 'Phone' }),
-    _react2['default'].createElement(_input2['default'], { placeholder: 'Password' }),
-    _react2['default'].createElement(_input2['default'], { placeholder: 'Confirm Password' }),
-    _react2['default'].createElement(_regularButton2['default'], { txt: 'Get Started' })
-  );
-};
-
-// Exporting
-// Dependencies
-exports['default'] = SignUpBox;
-
-/***/ }),
+/* 227 */,
+/* 228 */,
+/* 229 */,
 /* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -48515,11 +48271,23 @@ var _dsHeader = __webpack_require__(236);
 
 var _dsHeader2 = _interopRequireDefault(_dsHeader);
 
+var _Desktop = __webpack_require__(238);
+
+var _Desktop2 = _interopRequireDefault(_Desktop);
+
+var _Section = __webpack_require__(245);
+
+var _Section2 = _interopRequireDefault(_Section);
+
+var _TypeSpecimen = __webpack_require__(246);
+
+var _TypeSpecimen2 = _interopRequireDefault(_TypeSpecimen);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
+var Components = function Components(_ref) {
+  var system = _ref.system;
 
-var Components = function Components() {
   return _react2['default'].createElement(
     _reactSketchapp.Artboard,
     { name: 'Components', style: {
@@ -48529,7 +48297,6 @@ var Components = function Components() {
         backgroundColor: _designSystem2['default'].colors.GrayLine,
         flexDirection: 'row',
         flexWrap: 'wrap'
-
       } },
     _react2['default'].createElement(
       _reactSketchapp.Artboard,
@@ -48543,10 +48310,21 @@ var Components = function Components() {
           margin: _designSystem2['default'].spacing * 10
 
         } },
-      _react2['default'].createElement(_dsHeader2['default'], {
-        logo: 'Typography'
-      }),
-      _react2['default'].createElement(_TypographyPage2['default'], null)
+      _react2['default'].createElement(_dsHeader2['default'], { logo: 'Typography' }),
+      _react2['default'].createElement(
+        _Section2['default'],
+        { title: 'Heading' },
+        Object.keys(system.Heading).map(function (name) {
+          return _react2['default'].createElement(_TypeSpecimen2['default'], { key: name, name: name, style: _reactSketchapp.TextStyles.get(name) });
+        })
+      ),
+      _react2['default'].createElement(
+        _Section2['default'],
+        { title: 'HeadingCenter' },
+        Object.keys(system.HeadingCenter).map(function (name) {
+          return _react2['default'].createElement(_TypeSpecimen2['default'], { key: name, name: name, style: _reactSketchapp.TextStyles.get(name) });
+        })
+      )
     ),
     _react2['default'].createElement(
       _reactSketchapp.Artboard,
@@ -48587,6 +48365,7 @@ var Components = function Components() {
     )
   );
 };
+/* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
 
 exports['default'] = Components;
 
@@ -49097,7 +48876,7 @@ exports['default'] = TypographyPage;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Heading = undefined;
+exports.HeadingRight = exports.HeadingCenter = exports.Heading = exports.Title = exports.colors = undefined;
 
 var _processColor = __webpack_require__(224);
 
@@ -49109,8 +48888,14 @@ var _pijma2 = _interopRequireDefault(_pijma);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Importing dependencies
+
+
+var colors = exports.colors = {
+  Haus: '#F3F4F4'
+};
+
 // Title
-// Importing dependencies
 var SizesTitle = [48, 56];
 var HeightTitle = [40, 48];
 
@@ -49138,7 +48923,7 @@ var fontWeights = {
   extraBold: '900'
 };
 
-var Heading = exports.Heading = {
+var Title = exports.Title = {
   '1': {
     color: _pijma2['default'].colors.Black,
     fontSize: SizesTitle[0],
@@ -49155,9 +48940,137 @@ var Heading = exports.Heading = {
   }
 };
 
+var Heading = exports.Heading = {
+  'H1': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[0]
+  },
+  'H2': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[1]
+  },
+  'H3': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[2],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[2]
+  },
+  'H4': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[3],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[3]
+  },
+  'H5': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[4],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[4]
+  }
+};
+
+var HeadingCenter = exports.HeadingCenter = {
+  'H1Center': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[0],
+    textAlign: 'center'
+  },
+  'H2Center': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[1],
+    textAlign: 'center'
+  },
+  'H3Center': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[2],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[2],
+    textAlign: 'center'
+  },
+  'H4Center': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[3],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[3],
+    textAlign: 'center'
+  },
+  'H5Center': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[4],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[4],
+    textAlign: 'center'
+  }
+};
+
+var HeadingRight = exports.HeadingRight = {
+  'H1': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[0],
+    textAlign: 'right'
+  },
+  'H2': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[1],
+    textAlign: 'right'
+  },
+  'H3': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[2],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[2],
+    textAlign: 'right'
+  },
+  'H4': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[3],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[3],
+    textAlign: 'right'
+  },
+  'H5': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[4],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[4],
+    textAlign: 'right'
+  }
+};
+
 // Exporting
-exports['default'] = {
-  Heading: Heading
+exports['default'] = { colors: Object.keys(colors).reduce(function (acc, name) {
+    return Object.assign({}, acc, _defineProperty({}, name, (0, _processColor2['default'])(colors[name])));
+  }, {}),
+  Heading: Heading,
+  HeadingCenter: HeadingCenter,
+  HeadingRight: HeadingRight
 };
 
 /***/ }),
@@ -49221,6 +49134,148 @@ var space = exports.space = {
     return Object.assign({}, acc, _defineProperty({}, name, (0, _processColor2['default'])(colors[name])));
   }, {})
 }, _defineProperty(_colors$colors$spacin, 'colors', colors), _defineProperty(_colors$colors$spacin, 'spacing', spacing), _defineProperty(_colors$colors$spacin, 'space', space), _colors$colors$spacin);
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _reactSketchapp = __webpack_require__(5);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+var Label = function Label(_ref) {
+  var bold = _ref.bold,
+      children = _ref.children;
+  return React.createElement(
+    _reactSketchapp.Text,
+    {
+      style: {
+        color: '#333',
+        fontWeight: bold ? 'bold' : 'normal',
+        fontSize: 16,
+        lineHeight: 24
+      }
+    },
+    children
+  );
+};
+
+exports['default'] = Label;
+
+/***/ }),
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _reactSketchapp = __webpack_require__(5);
+
+var _Label = __webpack_require__(240);
+
+var _Label2 = _interopRequireDefault(_Label);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+var Section = function Section(_ref) {
+  var title = _ref.title,
+      children = _ref.children;
+  return React.createElement(
+    _reactSketchapp.View,
+    { style: { marginBottom: 96 /*flexDirection: 'row'*/ } },
+    React.createElement(
+      _reactSketchapp.View,
+      { style: { width: 200 } },
+      React.createElement(
+        _Label2['default'],
+        { bold: true },
+        title
+      )
+    ),
+    React.createElement(
+      _reactSketchapp.View,
+      null,
+      children
+    )
+  );
+};
+exports['default'] = Section;
+
+/***/ }),
+/* 246 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _reactSketchapp = __webpack_require__(5);
+
+var _Label = __webpack_require__(240);
+
+var _Label2 = _interopRequireDefault(_Label);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+var TypeSpecimen = function TypeSpecimen(_ref) {
+  var name = _ref.name,
+      style = _ref.style;
+  return React.createElement(
+    _reactSketchapp.View,
+    { name: 'TypeSpecimen-' + String(name), style: { flexDirection: 'row', marginBottom: 24 } },
+    React.createElement(
+      _reactSketchapp.View,
+      { style: { width: 100 } },
+      React.createElement(
+        _Label2['default'],
+        null,
+        String(style.fontSize) + ' / ' + String(style.lineHeight)
+      )
+    ),
+    React.createElement(
+      _reactSketchapp.Text,
+      {
+        style: Object.assign({}, style)
+      },
+      name
+    )
+  );
+};
+exports['default'] = TypeSpecimen;
 
 /***/ })
 /******/ ]);

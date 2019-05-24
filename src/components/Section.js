@@ -8,7 +8,7 @@ type P = {
   children?: any,
 };
 const Section = ({ title, children }: P) => (
-  <View style={{ marginBottom: 96, flexDirection: 'row' }}>
+  <View style={{ marginBottom: 96, /*flexDirection: 'row'*/ }}>
     <View style={{ width: 200 }}>
       <Label bold>{title}</Label>
     </View>

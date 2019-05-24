@@ -3,6 +3,10 @@ import processColor from '../../processColor';
 import type { Color } from '../../processColor';
 import type { DesignSystem } from '../../designSystem';
 import Pijma from '../../pijma';
+
+export const colors = {
+  Haus: '#F3F4F4',
+};
  
 // Title
 const SizesTitle            = [48, 56];
@@ -33,7 +37,7 @@ const fontWeights = {
   extraBold: '900',
 };
 
-export const Heading = {
+export const Title = {
   '1': {
     color: Pijma.colors.Black,
     fontSize: SizesTitle[0],
@@ -50,13 +54,149 @@ export const Heading = {
   },
 };
 
+export const Heading = {
+  'H1': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[0],
+  },
+  'H2': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[1],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[1],
+  },
+  'H3': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[2],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[2],
+  },
+  'H4': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[3],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[3],
+  },
+  'H5': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[4],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[4],
+  },
+};
+
+export const HeadingCenter = {
+  'H1Center': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[0],
+    textAlign: 'center',
+  },
+  'H2Center': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[1],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[1],
+    textAlign: 'center',
+  },
+  'H3Center': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[2],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[2],
+    textAlign: 'center',
+  },
+  'H4Center': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[3],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[3],
+    textAlign: 'center',
+  },
+  'H5Center': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[4],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[4],
+    textAlign: 'center',
+  },
+};
+
+
+export const HeadingRight = {
+  'H1': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[0],
+    textAlign: 'right',
+  },
+  'H2': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[1],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[1],
+    textAlign: 'right',
+  },
+  'H3': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[2],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[2],
+    textAlign: 'right',
+  },
+  'H4': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[3],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[3],
+    textAlign: 'right',
+  },
+  'H5': {
+    color: Pijma.colors.Black,
+    fontSize: SizesHeading[4],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: SizesHeading[4],
+    textAlign: 'right',
+  },
+};
+
 
 
 // Exporting
-export default {
+export default { colors: Object.keys(colors).reduce(
+  (acc, name) => ({
+    ...acc,
+    [name]: processColor(colors[name]),
+  }),
+  {},
+),
   Heading,
+  HeadingCenter,
+  HeadingRight,
 };
 
-export type Fonts = {
-  fonts: any,
+export type TypographyDesktop = {
+  Heading: any,
+  HeadingCenter: any,
+  HeadingRight: any,
+  colors: { [key: string]: Color },
 };

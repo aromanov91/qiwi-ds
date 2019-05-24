@@ -10,9 +10,13 @@ import PaymentBox from '../components/payment/paymentBox';
 import ButtonsBox from '../component-pages/buttonsBox';
 import TypographyPage from '../component-pages/TypographyPage';
 import Header from '../components/header/ds-header';
+import typographyDesktop from '../components/typography/Desktop';
+import type { TypographyDesktop } from '../components/typography/Desktop';
+import Section from '../components/Section';
+import TypeSpecimen from '../components/TypeSpecimen';
 
 
-const Components = () => {
+const Components = ({ system }: { system: TypographyDesktop }) => {
   return (
     <Artboard name="Components" style={{
       width: 5000,
@@ -21,28 +25,32 @@ const Components = () => {
       backgroundColor: designSystem.colors.GrayLine,
       flexDirection: 'row',
       flexWrap: 'wrap',
-      
     }}>
 
-      <Artboard name="Typography" style={{
-        width: 1280,
-        height: 900,
-        marginBottom: designSystem.spacing * 4,
-        backgroundColor: designSystem.colors.Background,
-        alignItems: 'center',
-        justifyContent: 'top',
-        margin: designSystem.spacing * 10,
-        
-      }}>
-        <Header
-          logo = "Typography"
-        >
-        </Header>
-        <TypographyPage
-        >
-        </TypographyPage>
+    <Artboard name="Typography" style={{
+      width: 1280,
+      height: 900,
+      marginBottom: designSystem.spacing * 4,
+      backgroundColor: designSystem.colors.Background,
+      alignItems: 'center',
+      justifyContent: 'top',
+      margin: designSystem.spacing * 10,
+      
+    }}>
+      <Header logo = "Typography"></Header>
+      <Section title="Heading" >
+          {Object.keys(system.Heading).map(name => (
+            <TypeSpecimen key={name} name={name} style={TextStyles.get(name)} />
+          ))}
+      </Section>
+      <Section title="HeadingCenter" >
+          {Object.keys(system.HeadingCenter).map(name => (
+            <TypeSpecimen key={name} name={name} style={TextStyles.get(name)} />
+          ))}
+      </Section>
 
-      </Artboard>
+      {/* <TypographyPage></TypographyPage> */}
+    </Artboard>
 
       <Artboard name="Buttons" style={{
         width: 1280,
