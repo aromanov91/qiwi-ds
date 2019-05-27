@@ -2,7 +2,8 @@
 /* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
 
 import React from 'react';
-import { render, TextStyles, View } from 'react-sketchapp';
+import { render, TextStyles, View, Text, Artboard } from 'react-sketchapp';
+import designSystem from './designSystem';
 import type { DesignSystem } from './designSystem';
 import typographyDesktop from './components/typography/Desktop';
 import type { TypographyDesktop } from './components/typography/Desktop';
@@ -15,7 +16,6 @@ export default () => {
       clearExistingStyles: true,
     },
     typographyDesktop.Heading,
-    typographyDesktop.HeadingCenter,
   );
 
   render(<Components system={typographyDesktop} />, context.document.currentPage());

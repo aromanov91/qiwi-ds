@@ -7927,6 +7927,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
+var _designSystem = __webpack_require__(6);
+
+var _designSystem2 = _interopRequireDefault(_designSystem);
+
 var _Desktop = __webpack_require__(238);
 
 var _Desktop2 = _interopRequireDefault(_Desktop);
@@ -7937,16 +7941,15 @@ var _components2 = _interopRequireDefault(_components);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
-
 exports['default'] = function () {
   _reactSketchapp.TextStyles.create({
     context: context,
     clearExistingStyles: true
-  }, _Desktop2['default'].Heading, _Desktop2['default'].HeadingCenter);
+  }, _Desktop2['default'].Heading);
 
   (0, _reactSketchapp.render)(_react2['default'].createElement(_components2['default'], { system: _Desktop2['default'] }), context.document.currentPage());
 };
+/* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
 
 /***/ }),
 /* 107 */
@@ -48317,13 +48320,6 @@ var Components = function Components(_ref) {
         Object.keys(system.Heading).map(function (name) {
           return _react2['default'].createElement(_TypeSpecimen2['default'], { key: name, name: name, style: _reactSketchapp.TextStyles.get(name) });
         })
-      ),
-      _react2['default'].createElement(
-        _Section2['default'],
-        { title: 'HeadingCenter' },
-        Object.keys(system.HeadingCenter).map(function (name) {
-          return _react2['default'].createElement(_TypeSpecimen2['default'], { key: name, name: name, style: _reactSketchapp.TextStyles.get(name) });
-        })
       )
     ),
     _react2['default'].createElement(
@@ -48979,7 +48975,7 @@ var Heading = exports.Heading = {
 };
 
 var HeadingCenter = exports.HeadingCenter = {
-  'H1Center': {
+  'H1': {
     color: _pijma2['default'].colors.Black,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies['default'],
@@ -48987,7 +48983,7 @@ var HeadingCenter = exports.HeadingCenter = {
     lineHeight: SizesHeading[0],
     textAlign: 'center'
   },
-  'H2Center': {
+  'H2': {
     color: _pijma2['default'].colors.Black,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies['default'],
@@ -48995,7 +48991,7 @@ var HeadingCenter = exports.HeadingCenter = {
     lineHeight: SizesHeading[1],
     textAlign: 'center'
   },
-  'H3Center': {
+  'H3': {
     color: _pijma2['default'].colors.Black,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies['default'],
@@ -49003,7 +48999,7 @@ var HeadingCenter = exports.HeadingCenter = {
     lineHeight: SizesHeading[2],
     textAlign: 'center'
   },
-  'H4Center': {
+  'H4': {
     color: _pijma2['default'].colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies['default'],
@@ -49011,7 +49007,7 @@ var HeadingCenter = exports.HeadingCenter = {
     lineHeight: SizesHeading[3],
     textAlign: 'center'
   },
-  'H5Center': {
+  'H5': {
     color: _pijma2['default'].colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies['default'],

@@ -43,11 +43,6 @@ const Components = ({ system }: { system: TypographyDesktop }) => {
             <TypeSpecimen key={name} name={name} style={TextStyles.get(name)} />
           ))}
       </Section>
-      <Section title="HeadingCenter" >
-          {Object.keys(system.HeadingCenter).map(name => (
-            <TypeSpecimen key={name} name={name} style={TextStyles.get(name)} />
-          ))}
-      </Section>
 
       {/* <TypographyPage></TypographyPage> */}
     </Artboard>

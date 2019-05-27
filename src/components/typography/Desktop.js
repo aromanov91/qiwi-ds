@@ -93,7 +93,7 @@ export const Heading = {
 };
 
 export const HeadingCenter = {
-  'H1Center': {
+  'H1': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
@@ -101,7 +101,7 @@ export const HeadingCenter = {
     lineHeight: SizesHeading[0],
     textAlign: 'center',
   },
-  'H2Center': {
+  'H2': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
@@ -109,7 +109,7 @@ export const HeadingCenter = {
     lineHeight: SizesHeading[1],
     textAlign: 'center',
   },
-  'H3Center': {
+  'H3': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
@@ -117,7 +117,7 @@ export const HeadingCenter = {
     lineHeight: SizesHeading[2],
     textAlign: 'center',
   },
-  'H4Center': {
+  'H4': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
@@ -125,7 +125,7 @@ export const HeadingCenter = {
     lineHeight: SizesHeading[3],
     textAlign: 'center',
   },
-  'H5Center': {
+  'H5': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
@@ -196,7 +196,5 @@ export default { colors: Object.keys(colors).reduce(
 
 export type TypographyDesktop = {
   Heading: any,
-  HeadingCenter: any,
-  HeadingRight: any,
   colors: { [key: string]: Color },
 };
