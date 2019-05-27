@@ -65,7 +65,7 @@ var exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 106);
+/******/ 	return __webpack_require__(__webpack_require__.s = 108);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,7 +78,7 @@ var exports =
 if (false) {
   module.exports = require('./cjs/react.production.min.js');
 } else {
-  module.exports = __webpack_require__(107);
+  module.exports = __webpack_require__(109);
 }
 
 
@@ -94,12 +94,12 @@ if (false) {
  */
 
 if (true) {
-  var ReactIs = __webpack_require__(32);
+  var ReactIs = __webpack_require__(31);
 
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(137)(ReactIs.isElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(139)(ReactIs.isElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
@@ -595,9 +595,9 @@ exports.textPathProps = textPathProps;
 /* WEBPACK VAR INJECTION */(function(console) {/* globals log */
 
 if (true) {
-  var sketchUtils = __webpack_require__(108)
-  var sketchDebugger = __webpack_require__(110)
-  var actions = __webpack_require__(112)
+  var sketchUtils = __webpack_require__(110)
+  var sketchDebugger = __webpack_require__(112)
+  var actions = __webpack_require__(114)
 
   function getStack() {
     return sketchUtils.prepareStackTrace(new Error().stack)
@@ -802,23 +802,23 @@ module.exports = console
 
 var _render = __webpack_require__(49);
 
-var _Platform = __webpack_require__(195);
+var _Platform = __webpack_require__(197);
 
 var _stylesheet = __webpack_require__(11);
 
-var _Document = __webpack_require__(196);
+var _Document = __webpack_require__(198);
 
-var _Page = __webpack_require__(197);
+var _Page = __webpack_require__(199);
 
-var _Artboard = __webpack_require__(199);
+var _Artboard = __webpack_require__(201);
 
 var _Image = __webpack_require__(104);
 
 var _RedBox = __webpack_require__(66);
 
-var _Svg = __webpack_require__(201);
+var _Svg = __webpack_require__(203);
 
-var _View = __webpack_require__(44);
+var _View = __webpack_require__(43);
 
 var _Text = __webpack_require__(67);
 
@@ -855,11 +855,194 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.generateID = generateID;
+exports.makeSymbolMaster = exports.makeSymbolInstance = exports.makeJSONDataReference = exports.makeRect = exports.makeImageFill = exports.makeColorFill = exports.makeColorFromCSS = void 0;
+
+var _sketchConstants = __webpack_require__(18);
+
+var normalizeColor = __webpack_require__(136);
+
+var _hacksForJSONImpl = __webpack_require__(9);
+
+/* eslint-disable no-mixed-operators, no-bitwise */
+var lut = [];
+
+for (var i = 0; i < 256; i += 1) {
+  lut[i] = (i < 16 ? '0' : '') + i.toString(16);
+} // Hack (http://stackoverflow.com/a/21963136)
+
+
+function e7() {
+  var d0 = Math.random() * 0xffffffff | 0;
+  var d1 = Math.random() * 0xffffffff | 0;
+  var d2 = Math.random() * 0xffffffff | 0;
+  var d3 = Math.random() * 0xffffffff | 0;
+  return "".concat(lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff], "-").concat(lut[d1 & 0xff]).concat(lut[d1 >> 8 & 0xff], "-").concat(lut[d1 >> 16 & 0x0f | 0x40]).concat(lut[d1 >> 24 & 0xff], "-").concat(lut[d2 & 0x3f | 0x80]).concat(lut[d2 >> 8 & 0xff], "-").concat(lut[d2 >> 16 & 0xff]).concat(lut[d2 >> 24 & 0xff]).concat(lut[d3 & 0xff]).concat(lut[d3 >> 8 & 0xff]).concat(lut[d3 >> 16 & 0xff]).concat(lut[d3 >> 24 & 0xff]);
+} // Keep track on previous numbers that are generated
+
+
+var previousNumber = 1; // Will always produce a unique Number (Int) based on of the current date
+
+function generateIdNumber() {
+  var date = Date.now();
+
+  if (date <= previousNumber) {
+    previousNumber += 1;
+    date = previousNumber;
+  } else {
+    previousNumber = date;
+  }
+
+  return date;
+}
+
+function generateID() {
+  return e7();
+}
+
+var safeToLower = function safeToLower(input) {
+  if (typeof input === 'string') {
+    return input.toLowerCase();
+  }
+
+  return input;
+}; // Takes colors as CSS hex, name, rgb, rgba, hsl or hsla
+
+
+var makeColorFromCSS = function makeColorFromCSS(input) {
+  var alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  var nullableColor = normalizeColor(safeToLower(input));
+  var colorInt = nullableColor == null ? 0x00000000 : nullableColor;
+
+  var _normalizeColor$rgba = normalizeColor.rgba(colorInt),
+      r = _normalizeColor$rgba.r,
+      g = _normalizeColor$rgba.g,
+      b = _normalizeColor$rgba.b,
+      a = _normalizeColor$rgba.a;
+
+  return {
+    _class: 'color',
+    red: r / 255,
+    green: g / 255,
+    blue: b / 255,
+    alpha: a * alpha
+  };
+}; // Solid color fill
+
+
+exports.makeColorFromCSS = makeColorFromCSS;
+
+var makeColorFill = function makeColorFill(cssColor) {
+  return {
+    _class: 'fill',
+    isEnabled: true,
+    color: makeColorFromCSS(cssColor),
+    fillType: 0,
+    noiseIndex: 0,
+    noiseIntensity: 0,
+    patternFillType: 1,
+    patternTileScale: 1
+  };
+};
+
+exports.makeColorFill = makeColorFill;
+
+var makeImageFill = function makeImageFill(image) {
+  var patternFillType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  return {
+    _class: 'fill',
+    isEnabled: true,
+    fillType: _sketchConstants.FillType.Pattern,
+    image: image,
+    noiseIndex: 0,
+    noiseIntensity: 0,
+    patternFillType: patternFillType,
+    patternTileScale: 1
+  };
+}; // Used in frames, etc
+
+
+exports.makeImageFill = makeImageFill;
+
+var makeRect = function makeRect(x, y, width, height) {
+  return {
+    _class: 'rect',
+    constrainProportions: false,
+    x: x,
+    y: y,
+    width: width,
+    height: height
+  };
+};
+
+exports.makeRect = makeRect;
+
+var makeJSONDataReference = function makeJSONDataReference(image) {
+  return {
+    _class: 'MSJSONOriginalDataReference',
+    _ref: "images/".concat(generateID()),
+    _ref_class: 'MSImageData',
+    data: {
+      _data: image.data().base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithCarriageReturn) // TODO(gold): can I just declare this as a var instead of using Cocoa?
+
+    },
+    sha1: {
+      _data: image.sha1().base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithCarriageReturn)
+    }
+  };
+};
+
+exports.makeJSONDataReference = makeJSONDataReference;
+
+var makeSymbolInstance = function makeSymbolInstance(frame, symbolID, name, resizingConstraint) {
+  return {
+    _class: 'symbolInstance',
+    horizontalSpacing: 0,
+    verticalSpacing: 0,
+    nameIsFixed: true,
+    isVisible: true,
+    do_objectID: generateID(),
+    resizingConstraint: (0, _hacksForJSONImpl.makeResizeConstraint)(resizingConstraint),
+    name: name,
+    symbolID: symbolID,
+    frame: frame
+  };
+};
+
+exports.makeSymbolInstance = makeSymbolInstance;
+
+var makeSymbolMaster = function makeSymbolMaster(frame, symbolID, name) {
+  return {
+    _class: 'symbolMaster',
+    do_objectID: generateID(),
+    nameIsFixed: true,
+    isVisible: true,
+    backgroundColor: makeColorFromCSS('white'),
+    hasBackgroundColor: false,
+    name: name,
+    changeIdentifier: generateIdNumber(),
+    symbolID: symbolID,
+    frame: frame
+  };
+};
+
+exports.makeSymbolMaster = makeSymbolMaster;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.shadows = exports.fonts = exports.space = exports.spacing = exports.colors = undefined;
 
 var _colors$colors$fonts$;
 
-var _processColor = __webpack_require__(224);
+var _processColor = __webpack_require__(44);
 
 var _processColor2 = _interopRequireDefault(_processColor);
 
@@ -1041,189 +1224,6 @@ exports['default'] = (_colors$colors$fonts$ = {
 }, _defineProperty(_colors$colors$fonts$, 'colors', colors), _defineProperty(_colors$colors$fonts$, 'fonts', fonts), _defineProperty(_colors$colors$fonts$, 'spacing', spacing), _defineProperty(_colors$colors$fonts$, 'shadows', shadows), _defineProperty(_colors$colors$fonts$, 'space', space), _colors$colors$fonts$);
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.generateID = generateID;
-exports.makeSymbolMaster = exports.makeSymbolInstance = exports.makeJSONDataReference = exports.makeRect = exports.makeImageFill = exports.makeColorFill = exports.makeColorFromCSS = void 0;
-
-var _sketchConstants = __webpack_require__(18);
-
-var normalizeColor = __webpack_require__(134);
-
-var _hacksForJSONImpl = __webpack_require__(9);
-
-/* eslint-disable no-mixed-operators, no-bitwise */
-var lut = [];
-
-for (var i = 0; i < 256; i += 1) {
-  lut[i] = (i < 16 ? '0' : '') + i.toString(16);
-} // Hack (http://stackoverflow.com/a/21963136)
-
-
-function e7() {
-  var d0 = Math.random() * 0xffffffff | 0;
-  var d1 = Math.random() * 0xffffffff | 0;
-  var d2 = Math.random() * 0xffffffff | 0;
-  var d3 = Math.random() * 0xffffffff | 0;
-  return "".concat(lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff], "-").concat(lut[d1 & 0xff]).concat(lut[d1 >> 8 & 0xff], "-").concat(lut[d1 >> 16 & 0x0f | 0x40]).concat(lut[d1 >> 24 & 0xff], "-").concat(lut[d2 & 0x3f | 0x80]).concat(lut[d2 >> 8 & 0xff], "-").concat(lut[d2 >> 16 & 0xff]).concat(lut[d2 >> 24 & 0xff]).concat(lut[d3 & 0xff]).concat(lut[d3 >> 8 & 0xff]).concat(lut[d3 >> 16 & 0xff]).concat(lut[d3 >> 24 & 0xff]);
-} // Keep track on previous numbers that are generated
-
-
-var previousNumber = 1; // Will always produce a unique Number (Int) based on of the current date
-
-function generateIdNumber() {
-  var date = Date.now();
-
-  if (date <= previousNumber) {
-    previousNumber += 1;
-    date = previousNumber;
-  } else {
-    previousNumber = date;
-  }
-
-  return date;
-}
-
-function generateID() {
-  return e7();
-}
-
-var safeToLower = function safeToLower(input) {
-  if (typeof input === 'string') {
-    return input.toLowerCase();
-  }
-
-  return input;
-}; // Takes colors as CSS hex, name, rgb, rgba, hsl or hsla
-
-
-var makeColorFromCSS = function makeColorFromCSS(input) {
-  var alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-  var nullableColor = normalizeColor(safeToLower(input));
-  var colorInt = nullableColor == null ? 0x00000000 : nullableColor;
-
-  var _normalizeColor$rgba = normalizeColor.rgba(colorInt),
-      r = _normalizeColor$rgba.r,
-      g = _normalizeColor$rgba.g,
-      b = _normalizeColor$rgba.b,
-      a = _normalizeColor$rgba.a;
-
-  return {
-    _class: 'color',
-    red: r / 255,
-    green: g / 255,
-    blue: b / 255,
-    alpha: a * alpha
-  };
-}; // Solid color fill
-
-
-exports.makeColorFromCSS = makeColorFromCSS;
-
-var makeColorFill = function makeColorFill(cssColor) {
-  return {
-    _class: 'fill',
-    isEnabled: true,
-    color: makeColorFromCSS(cssColor),
-    fillType: 0,
-    noiseIndex: 0,
-    noiseIntensity: 0,
-    patternFillType: 1,
-    patternTileScale: 1
-  };
-};
-
-exports.makeColorFill = makeColorFill;
-
-var makeImageFill = function makeImageFill(image) {
-  var patternFillType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-  return {
-    _class: 'fill',
-    isEnabled: true,
-    fillType: _sketchConstants.FillType.Pattern,
-    image: image,
-    noiseIndex: 0,
-    noiseIntensity: 0,
-    patternFillType: patternFillType,
-    patternTileScale: 1
-  };
-}; // Used in frames, etc
-
-
-exports.makeImageFill = makeImageFill;
-
-var makeRect = function makeRect(x, y, width, height) {
-  return {
-    _class: 'rect',
-    constrainProportions: false,
-    x: x,
-    y: y,
-    width: width,
-    height: height
-  };
-};
-
-exports.makeRect = makeRect;
-
-var makeJSONDataReference = function makeJSONDataReference(image) {
-  return {
-    _class: 'MSJSONOriginalDataReference',
-    _ref: "images/".concat(generateID()),
-    _ref_class: 'MSImageData',
-    data: {
-      _data: image.data().base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithCarriageReturn) // TODO(gold): can I just declare this as a var instead of using Cocoa?
-
-    },
-    sha1: {
-      _data: image.sha1().base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithCarriageReturn)
-    }
-  };
-};
-
-exports.makeJSONDataReference = makeJSONDataReference;
-
-var makeSymbolInstance = function makeSymbolInstance(frame, symbolID, name, resizingConstraint) {
-  return {
-    _class: 'symbolInstance',
-    horizontalSpacing: 0,
-    verticalSpacing: 0,
-    nameIsFixed: true,
-    isVisible: true,
-    do_objectID: generateID(),
-    resizingConstraint: (0, _hacksForJSONImpl.makeResizeConstraint)(resizingConstraint),
-    name: name,
-    symbolID: symbolID,
-    frame: frame
-  };
-};
-
-exports.makeSymbolInstance = makeSymbolInstance;
-
-var makeSymbolMaster = function makeSymbolMaster(frame, symbolID, name) {
-  return {
-    _class: 'symbolMaster',
-    do_objectID: generateID(),
-    nameIsFixed: true,
-    isVisible: true,
-    backgroundColor: makeColorFromCSS('white'),
-    hasBackgroundColor: false,
-    name: name,
-    changeIdentifier: generateIdNumber(),
-    symbolID: symbolID,
-    frame: frame
-  };
-};
-
-exports.makeSymbolMaster = makeSymbolMaster;
-
-/***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1309,11 +1309,11 @@ var _sketchConstants = __webpack_require__(18);
 
 var _sketchappJsonPlugin = __webpack_require__(17);
 
-var _findFont = __webpack_require__(130);
+var _findFont = __webpack_require__(132);
 
-var _getSketchVersion = __webpack_require__(133);
+var _getSketchVersion = __webpack_require__(135);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
 // We need native macOS fonts and colors for these hacks so import the old utils
 var TEXT_ALIGN = {
@@ -1615,7 +1615,7 @@ function makeSvgLayer(layout, name, svg) {
 "use strict";
 
 
-var keys = __webpack_require__(34);
+var keys = __webpack_require__(33);
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';
 
 var toStr = Object.prototype.toString;
@@ -1685,7 +1685,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _expandStyle = __webpack_require__(138);
+var _expandStyle = __webpack_require__(140);
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 var _id = 0; // eslint-disable-next-line no-plusplus
@@ -1828,7 +1828,7 @@ exports.default = _default;
 "use strict";
 
 
-var implementation = __webpack_require__(154);
+var implementation = __webpack_require__(156);
 
 module.exports = Function.prototype.bind || implementation;
 
@@ -1933,7 +1933,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _layerGroup = __webpack_require__(141);
+var _layerGroup = __webpack_require__(143);
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -2016,7 +2016,7 @@ exports.toSJSON = toSJSON;
 exports.fromSJSON = fromSJSON;
 exports.fromSJSONDictionary = fromSJSONDictionary;
 
-var _invariant = __webpack_require__(27);
+var _invariant = __webpack_require__(26);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -2227,7 +2227,7 @@ exports.default = _default;
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports =  false ? require('./build/mocks') : __webpack_require__(151);
+module.exports =  false ? require('./build/mocks') : __webpack_require__(153);
 
 //# sourceMappingURL=index.js.map
 
@@ -2272,7 +2272,7 @@ var _sketchappJsonPlugin = __webpack_require__(17);
 
 var _stylesheet = __webpack_require__(11);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
 var _ViewStylePropTypes = __webpack_require__(19);
 
@@ -2546,61 +2546,6 @@ module.exports = function isCallable(value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactSketchapp = __webpack_require__(5);
-
-var _designSystem = __webpack_require__(6);
-
-var _designSystem2 = _interopRequireDefault(_designSystem);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-// Element design, including an editable "txt"
-var RegularButton = function RegularButton(_ref) {
-  var txt = _ref.txt,
-      children = _ref.children;
-  return _react2['default'].createElement(
-    _reactSketchapp.View,
-    { style: {
-        alignSelf: 'flex-start',
-        flex: 1,
-        backgroundColor: _designSystem2['default'].colors.Orange,
-        paddingLeft: 36,
-        paddingRight: 36,
-        paddingBottom: 42,
-        paddingTop: 18,
-        borderRadius: 100,
-        minWidth: 120
-
-      } },
-    _react2['default'].createElement(
-      _reactSketchapp.Text,
-      { name: 'ButtonSymle', style: [_designSystem2['default'].fonts.AscendedButtonText, {
-          alignSelf: "center"
-        }] },
-      txt
-    )
-  );
-};
-
-// Here we export the element as "regularButton"
-// Importing the necessary dependencies
-exports['default'] = RegularButton;
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /*
 object-assign
 (c) Sindre Sorhus
@@ -2694,7 +2639,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2804,7 +2749,7 @@ module.exports = checkPropTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2860,7 +2805,7 @@ module.exports = invariant;
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports) {
 
 var g;
@@ -2887,7 +2832,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2905,8 +2850,8 @@ module.exports = g;
  * @format
  */
 
-var Yoga = __webpack_require__(119);
-var nbind = __webpack_require__(121);
+var Yoga = __webpack_require__(121);
+var nbind = __webpack_require__(123);
 
 var ran = false;
 var ret = null;
@@ -2933,7 +2878,7 @@ if (!ran) {
 module.exports = Yoga(ret.bind, ret.lib);
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3005,7 +2950,7 @@ var _default = Context;
 exports.default = _default;
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3034,7 +2979,7 @@ var _default = pick;
 exports.default = _default;
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3043,12 +2988,12 @@ exports.default = _default;
 if (false) {
   module.exports = require('./cjs/react-is.production.min.js');
 } else {
-  module.exports = __webpack_require__(136);
+  module.exports = __webpack_require__(138);
 }
 
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3061,7 +3006,7 @@ exports.makeShapeGroup = exports.makeRectShapeLayer = exports.makeShapePath = ex
 
 var _hacksForJSONImpl = __webpack_require__(9);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -3268,7 +3213,7 @@ var makeShapeGroup = function makeShapeGroup(frame) {
 exports.makeShapeGroup = makeShapeGroup;
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3278,7 +3223,7 @@ var slice = Array.prototype.slice;
 var isArgs = __webpack_require__(69);
 
 var origKeys = Object.keys;
-var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(153);
+var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(155);
 
 var originalKeys = Object.keys;
 
@@ -3307,7 +3252,7 @@ module.exports = keysShim;
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3318,9 +3263,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = betweenValidator;
 
-var _object = _interopRequireDefault(__webpack_require__(156));
+var _object = _interopRequireDefault(__webpack_require__(158));
 
-var _shape = _interopRequireDefault(__webpack_require__(37));
+var _shape = _interopRequireDefault(__webpack_require__(36));
 
 var _valuesOf = _interopRequireDefault(__webpack_require__(85));
 
@@ -3557,7 +3502,7 @@ function betweenValidator(options) {
 //# sourceMappingURL=between.js.map
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3739,10 +3684,10 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 	return INTRINSICS[key];
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(164)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(166)))
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3753,7 +3698,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = shapeValidator;
 
-var _isPlainObject = _interopRequireDefault(__webpack_require__(38));
+var _isPlainObject = _interopRequireDefault(__webpack_require__(37));
 
 var _wrapValidator = _interopRequireDefault(__webpack_require__(2));
 
@@ -3811,7 +3756,7 @@ function shapeValidator(shapeTypes) {
 //# sourceMappingURL=shape.js.map
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3831,7 +3776,7 @@ exports["default"] = _default;
 //# sourceMappingURL=isPlainObject.js.map
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3854,7 +3799,7 @@ function renderableChildren(childrenProp) {
 //# sourceMappingURL=renderableChildren.js.map
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3865,7 +3810,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = getComponentName;
 
-var _functionPrototype = _interopRequireDefault(__webpack_require__(175));
+var _functionPrototype = _interopRequireDefault(__webpack_require__(177));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -3883,7 +3828,7 @@ function getComponentName(Component) {
 //# sourceMappingURL=getComponentName.js.map
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3934,7 +3879,7 @@ exports["default"] = _default;
 //# sourceMappingURL=integer.js.map
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3947,7 +3892,7 @@ exports["default"] = withShape;
 
 var _and = _interopRequireDefault(__webpack_require__(13));
 
-var _shape = _interopRequireDefault(__webpack_require__(37));
+var _shape = _interopRequireDefault(__webpack_require__(36));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -3962,7 +3907,7 @@ function withShape(type, shapeTypes) {
 //# sourceMappingURL=withShape.js.map
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3986,7 +3931,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4007,9 +3952,9 @@ var _stylesheet = __webpack_require__(11);
 
 var _ViewStylePropTypes = __webpack_require__(19);
 
-var _ResizingConstraintPropTypes = __webpack_require__(43);
+var _ResizingConstraintPropTypes = __webpack_require__(42);
 
-var _ShadowsPropTypes = __webpack_require__(194);
+var _ShadowsPropTypes = __webpack_require__(196);
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -4079,7 +4024,7 @@ _defineProperty(View, "defaultProps", {
 });
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4089,59 +4034,2777 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(0);
+var _chromaJs = __webpack_require__(225);
 
-var _react2 = _interopRequireDefault(_react);
-
-var _reactSketchapp = __webpack_require__(5);
-
-var _designSystem = __webpack_require__(6);
-
-var _designSystem2 = _interopRequireDefault(_designSystem);
+var _chromaJs2 = _interopRequireDefault(_chromaJs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-// Element design, including an editable placeholder
-var Input = function Input(_ref) {
-  var placeholder = _ref.placeholder,
-      label = _ref.label,
-      helper = _ref.helper;
-  return _react2['default'].createElement(
-    _reactSketchapp.View,
-    { style: {
-        marginBottom: 16,
-        marginTop: 16
-      } },
-    _react2['default'].createElement(
-      _reactSketchapp.Text,
-      { style: [_designSystem2['default'].fonts.Label, {}] },
-      label
-    ),
-    _react2['default'].createElement(
-      _reactSketchapp.View,
-      { style: {
-          borderStyle: 'solid',
-          borderColor: _designSystem2['default'].colors.GrayLine,
-          borderBottomWidth: 1,
-          paddingBottom: 3
-        } },
-      _react2['default'].createElement(
-        _reactSketchapp.Text,
-        { style: [_designSystem2['default'].fonts.Field, {}] },
-        placeholder
-      )
-    ),
-    _react2['default'].createElement(
-      _reactSketchapp.Text,
-      { style: [_designSystem2['default'].fonts.Label, {}] },
-      helper
-    )
-  );
+var minimums = {
+  aa: 4.5,
+  aaLarge: 3,
+  aaa: 7,
+  aaaLarge: 4.5
+};
+/* eslint-disable import/no-extraneous-dependencies */
+
+exports['default'] = function (hex) {
+  var contrast = _chromaJs2['default'].contrast(hex, 'white');
+  return {
+    hex: hex,
+    contrast: contrast,
+    accessibility: {
+      aa: contrast >= minimums.aa,
+      aaLarge: contrast >= minimums.aaLarge,
+      aaa: contrast >= minimums.aaa,
+      aaaLarge: contrast >= minimums.aaaLarge
+    }
+  };
 };
 
-// Here we export the element as "Input"
-// Importing the necessary dependencies
-exports['default'] = Input;
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Heading = exports.colors = undefined;
+
+var _Heading;
+
+var _processColor = __webpack_require__(44);
+
+var _processColor2 = _interopRequireDefault(_processColor);
+
+var _pijma = __webpack_require__(227);
+
+var _pijma2 = _interopRequireDefault(_pijma);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Importing dependencies
+
+
+var colors = exports.colors = {
+  Haus: '#F3F4F4'
+};
+
+// Title
+var SizesTitle = [48, 40];
+var HeightTitle = [56, 48];
+
+// Heading
+var SizesHeading = [32, 28, 24, 20, 16];
+var LineHeightHeading = [36, 32, 28, 24, 20];
+
+// CAPTION 
+var SizesCaption = [14];
+var LineHeightCaption = [20];
+
+// Body
+var SizesBody = [20, 16, 14];
+var LineHeightBody = [32, 24, 20];
+var LineHeightBodyCompact = [28, 20, 16];
+
+var fontFamilies = {
+  'default': 'Museo Sans Cyrl'
+};
+
+var fontWeights = {
+  regular: '300',
+  bold: '500',
+  semibold: '700',
+  extraBold: '900'
+};
+
+var Heading = exports.Heading = (_Heading = {
+
+  'CAPTION / Default / Left': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: 'bold',
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5
+  },
+  'CAPTION / Default / Center': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'center'
+  },
+  'CAPTION / Default / Right': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'right'
+  },
+  'CAPTION / Support / Left': {
+    color: _pijma2['default'].colors.Gray1,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5
+  },
+  'CAPTION / Support / Center': {
+    color: _pijma2['default'].colors.Gray1,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'center'
+  },
+  'CAPTION / Support / Right': {
+    color: _pijma2['default'].colors.Gray1,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'right'
+  },
+  'CAPTION / Inverse / Left': {
+    color: _pijma2['default'].colors.White,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5
+  },
+  'CAPTION / Inverse / Center': {
+    color: _pijma2['default'].colors.White,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'center'
+  },
+  'CAPTION / Inverse / Right': {
+    color: _pijma2['default'].colors.White,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'right'
+  },
+
+  'Title 1 / Default / Left / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesTitle[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[0]
+  },
+  'Title 2 / Default / Left / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesTitle[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[1]
+  },
+
+  // ----------------------------------
+
+  'Title 1 / Default / Center / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesTitle[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[0],
+    textAlign: 'center'
+  },
+  'Title 2 / Default / Center / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesTitle[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[1],
+    textAlign: 'center'
+  },
+
+  // ---------------------------------
+
+  'Title 1 / Default / Right / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesTitle[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[0],
+    textAlign: 'right'
+  },
+  'Title 2 / Default / Right / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesTitle[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[1],
+    textAlign: 'right'
+  },
+
+  // Inverse ---------------------------
+
+  'Title 1 / Inverse / Left / Desktop': {
+    color: _pijma2['default'].colors.White,
+    fontSize: SizesTitle[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[0]
+  },
+  'Title 2 / Inverse / Left / Desktop': {
+    color: _pijma2['default'].colors.White,
+    fontSize: SizesTitle[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[1]
+  },
+
+  // ----------------------------------
+
+  'Title 1 / Inverse / Center / Desktop': {
+    color: _pijma2['default'].colors.White,
+    fontSize: SizesTitle[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[0],
+    textAlign: 'center'
+  },
+  'Title 2 / Inverse / Center / Desktop': {
+    color: _pijma2['default'].colors.White,
+    fontSize: SizesTitle[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[1],
+    textAlign: 'center'
+  },
+
+  // ---------------------------------
+
+  'Title 1 / Inverse / Right / Desktop': {
+    color: _pijma2['default'].colors.White,
+    fontSize: SizesTitle[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[0],
+    textAlign: 'right'
+  },
+  'Title 2 / Inverse / Right / Desktop': {
+    color: _pijma2['default'].colors.White,
+    fontSize: SizesTitle[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[1],
+    textAlign: 'right'
+  },
+
+  // ---------------------------------
+  // Heading
+  // ---------------------------------
+
+  'H1 / Default / Left / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[0]
+  },
+  'H2 / Default / Left / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[1]
+  },
+  'H3 / Default / Left / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[2],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[2]
+  },
+  'H4 / Default / Left / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[3],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[3]
+  },
+  'H5 / Default / Left / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[4],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[4]
+  },
+
+  // ---------------------------------- 
+
+  'H1 / Default / Center / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[0],
+    textAlign: 'center'
+  },
+  'H2 / Default / Center / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[1],
+    textAlign: 'center'
+  },
+  'H3 / Default / Center / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[2],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[2],
+    textAlign: 'center'
+  },
+  'H4 / Default / Center / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[3],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[3],
+    textAlign: 'center'
+  },
+  'H5 / Default / Center / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[4],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[4],
+    textAlign: 'center'
+  },
+
+  // ---------------------------------- 
+
+  'H1 / Default / Right / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[0],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[0],
+    textAlign: 'right'
+  },
+  'H2 / Default / Right / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[1],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[1],
+    textAlign: 'right'
+  },
+  'H3 / Default / Right / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[2],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[2],
+    textAlign: 'right'
+  },
+  'H4 / Default / Right / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[3],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[3],
+    textAlign: 'right'
+  },
+  'H5 / Default / Right / Desktop': {
+    color: _pijma2['default'].colors.Black,
+    fontSize: SizesHeading[4],
+    fontFamily: fontFamilies['default'],
+    fontWeight: fontWeights.extraBold,
+    lineHeight: LineHeightHeading[4],
+    textAlign: 'right'
+  }
+
+}, _defineProperty(_Heading, 'H1 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[0]
+}), _defineProperty(_Heading, 'H2 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[1]
+}), _defineProperty(_Heading, 'H3 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[2]
+}), _defineProperty(_Heading, 'H4 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[3],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[3]
+}), _defineProperty(_Heading, 'H5 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[4],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[4]
+}), _defineProperty(_Heading, 'H1 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H2 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H3 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H4 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[3],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[3],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H5 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[4],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[4],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H1 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H2 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H3 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H4 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[3],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[3],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H5 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[4],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[4],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H1 / Inverse / Left / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[0]
+}), _defineProperty(_Heading, 'H2 / Inverse / Left / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[1]
+}), _defineProperty(_Heading, 'H3 / Inverse / Left / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[2]
+}), _defineProperty(_Heading, 'H4 / Inverse / Left / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[3],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[3]
+}), _defineProperty(_Heading, 'H5 / Inverse / Left / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[4],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[4]
+}), _defineProperty(_Heading, 'H1 / Inverse / Center / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H2 / Inverse / Center / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H3 / Inverse / Center / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H4 / Inverse / Center / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[3],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[3],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H5 / Inverse / Center / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[4],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[4],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H1 / Inverse / Right / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H2 / Inverse / Right / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H3 / Inverse / Right / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H4 / Inverse / Right / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[3],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[3],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H5 / Inverse / Right / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesHeading[4],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[4],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Inverse / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Inverse / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Inverse / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Inverse / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Inverse / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Inverse / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Inverse / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Inverse / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Inverse / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Inverse / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Inverse / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Inverse / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Inverse / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Inverse / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Inverse / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Inverse / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Inverse / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Inverse / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Inverse / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Inverse / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Inverse / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Inverse / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Inverse / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Inverse / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Inverse / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Inverse / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Inverse / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Inverse / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Inverse / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Inverse / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Inverse / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Inverse / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Inverse / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Inverse / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Inverse / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Inverse / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Support / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Support / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Support / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Support / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Support / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Support / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Support / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Support / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Support / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Support / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Support / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Support / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Support / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Support / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Support / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Support / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Support / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Support / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Support / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Support / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Support / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Support / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Support / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Support / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Support / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Support / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Support / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Support / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Support / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Support / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Support / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Support / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Support / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Support / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Support / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Support / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Failure / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Failure / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Failure / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Failure / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Failure / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Failure / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Failure / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Failure / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Failure / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Failure / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Failure / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Failure / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Failure / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Failure / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Failure / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Failure / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Failure / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Failure / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Failure / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Failure / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Failure / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Failure / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Failure / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Failure / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Failure / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Failure / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Failure / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Failure / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Failure / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Failure / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Failure / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Failure / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Failure / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Failure / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Failure / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Failure / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Red,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Success / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Success / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Success / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Success / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Success / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Success / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Success / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Success / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Success / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Success / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Success / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Success / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Success / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Success / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Success / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Success / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Success / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Success / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Success / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Success / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Success / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Success / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Success / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Success / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Success / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Success / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Success / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Success / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Success / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Success / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Success / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Success / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Success / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Success / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Success / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Success / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Green,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Warning / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Warning / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Warning / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Warning / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Warning / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Warning / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Warning / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Warning / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Warning / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Warning / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Warning / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Warning / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Warning / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Warning / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Warning / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Warning / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Warning / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Warning / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Warning / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Warning / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Warning / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Warning / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Warning / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Warning / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Warning / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Warning / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Warning / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Warning / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Warning / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Warning / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Warning / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Warning / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Warning / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Warning / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Warning / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Warning / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Yellow,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Link / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Link / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Link / Default / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Link / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Link / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Link / Default / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Link / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Link / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Link / Default / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Link / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Link / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Link / Default / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Link / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Link / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Link / Default / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Link / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Link / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Link / Default / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Link / Default / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Link / Default / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Link / Default / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Link / Default / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Link / Default / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Link / Default / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Link / Default / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Link / Default / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Link / Default / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Link / Default / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Link / Default / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Link / Default / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Link / Default / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Link / Default / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Link / Default / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Link / Default / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Link / Default / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Link / Default / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Link,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Bold / Normal / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Bold / Normal / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Bold / Normal / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0]
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1]
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Regular / Normal / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2]
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Regular / Normal / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Regular / Normal / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBody[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Bold / Compact / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Bold / Compact / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Bold / Compact / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.bold,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0]
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1]
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Regular / Compact / Left', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2]
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Regular / Compact / Center', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Body L / Link / Hover / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body M / Link / Hover / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Body S / Link / Hover / Regular / Compact / Right', {
+  color: _pijma2['default'].colors.Orange,
+  fontSize: SizesBody[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.regular,
+  lineHeight: LineHeightBodyCompact[2],
+  textAlign: 'right'
+}), _Heading);
+
+// Exporting
+exports['default'] = { colors: Object.keys(colors).reduce(function (acc, name) {
+    return Object.assign({}, acc, _defineProperty({}, name, (0, _processColor2['default'])(colors[name])));
+  }, {}),
+  Heading: Heading
+
+};
 
 /***/ }),
 /* 46 */
@@ -4396,17 +7059,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exports.reactTreeToFlexTree = void 0;
 
-var TestRenderer = __webpack_require__(113);
+var TestRenderer = __webpack_require__(115);
 
-var yoga = __webpack_require__(29);
+var yoga = __webpack_require__(28);
 
-var _Context = __webpack_require__(30);
+var _Context = __webpack_require__(29);
 
 var _hasAnyDefined = __webpack_require__(21);
 
-var _pick = __webpack_require__(31);
+var _pick = __webpack_require__(30);
 
-var _computeYogaTree = __webpack_require__(127);
+var _computeYogaTree = __webpack_require__(129);
 
 var _computeTextTree = __webpack_require__(54);
 
@@ -4573,9 +7236,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var murmurHash = __webpack_require__(131);
+var murmurHash = __webpack_require__(133);
 
-var _sortObjectKeys = __webpack_require__(132);
+var _sortObjectKeys = __webpack_require__(134);
 
 var hashStyle = function hashStyle(obj) {
   if (obj) {
@@ -4665,7 +7328,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var renderers = __webpack_require__(139);
+var renderers = __webpack_require__(141);
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -4737,9 +7400,9 @@ exports.makeHorizontalBorder = exports.makeVerticalBorder = exports.makeShadow =
 
 var _sketchConstants = __webpack_require__(18);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
-var _shapeLayers = __webpack_require__(33);
+var _shapeLayers = __webpack_require__(32);
 
 var DEFAULT_SHADOW_COLOR = '#000';
 
@@ -4875,9 +7538,9 @@ var _sketchConstants = __webpack_require__(18);
 
 var _SketchRenderer2 = __webpack_require__(15);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
-var _shapeLayers = __webpack_require__(33);
+var _shapeLayers = __webpack_require__(32);
 
 var _style = __webpack_require__(56);
 
@@ -5113,17 +7776,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var invariant = __webpack_require__(27);
+var invariant = __webpack_require__(26);
 
 var _sketchappJsonPlugin = __webpack_require__(17);
 
 var _hashStyle = __webpack_require__(53);
 
-var _sharedTextStyles = __webpack_require__(146);
+var _sharedTextStyles = __webpack_require__(148);
 
 var _hacksForJSONImpl = __webpack_require__(9);
 
-var _pick = __webpack_require__(31);
+var _pick = __webpack_require__(30);
 
 var _constants = __webpack_require__(14);
 
@@ -5391,11 +8054,11 @@ var React = __webpack_require__(0);
 
 var PropTypes = __webpack_require__(1);
 
-var ErrorStackParser = __webpack_require__(149);
+var ErrorStackParser = __webpack_require__(151);
 
 var _Text = __webpack_require__(67);
 
-var _View = __webpack_require__(44);
+var _View = __webpack_require__(43);
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -5547,11 +8210,11 @@ var _airbnbPropTypes = __webpack_require__(20);
 
 var _stylesheet = __webpack_require__(11);
 
-var _TextStylePropTypes = __webpack_require__(193);
+var _TextStylePropTypes = __webpack_require__(195);
 
 var _ViewStylePropTypes = __webpack_require__(19);
 
-var _ResizingConstraintPropTypes = __webpack_require__(43);
+var _ResizingConstraintPropTypes = __webpack_require__(42);
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -5628,7 +8291,7 @@ var defineProperties = __webpack_require__(10);
 
 var implementation = __webpack_require__(70);
 var getPolyfill = __webpack_require__(72);
-var shim = __webpack_require__(155);
+var shim = __webpack_require__(157);
 
 var polyfill = getPolyfill();
 
@@ -5673,7 +8336,7 @@ module.exports = function isArguments(value) {
 
 
 // modified from https://github.com/es-shims/es6-shim
-var keys = __webpack_require__(34);
+var keys = __webpack_require__(33);
 var bind = __webpack_require__(12);
 var canBeObject = function (obj) {
 	return typeof obj !== 'undefined' && obj !== null;
@@ -5844,7 +8507,7 @@ module.exports = exports['default'];
 "use strict";
 
 
-var ES = __webpack_require__(157);
+var ES = __webpack_require__(159);
 var has = __webpack_require__(16);
 var bind = __webpack_require__(12);
 var isEnumerable = bind.call(Function.call, Object.prototype.propertyIsEnumerable);
@@ -5869,10 +8532,10 @@ module.exports = function entries(O) {
 
 
 var has = __webpack_require__(16);
-var toPrimitive = __webpack_require__(159);
-var keys = __webpack_require__(34);
+var toPrimitive = __webpack_require__(161);
+var keys = __webpack_require__(33);
 
-var GetIntrinsic = __webpack_require__(36);
+var GetIntrinsic = __webpack_require__(35);
 
 var $TypeError = GetIntrinsic('%TypeError%');
 var $SyntaxError = GetIntrinsic('%SyntaxError%');
@@ -5893,7 +8556,7 @@ var MAX_SAFE_INTEGER = $Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
 var assign = __webpack_require__(80);
 var sign = __webpack_require__(81);
 var mod = __webpack_require__(82);
-var isPrimitive = __webpack_require__(166);
+var isPrimitive = __webpack_require__(168);
 var parseInteger = parseInt;
 var bind = __webpack_require__(12);
 var arraySlice = bind.call(Function.call, $Array.prototype.slice);
@@ -5938,7 +8601,7 @@ var trim = function (value) {
 	return replace(value, trimRegex, '');
 };
 
-var ES5 = __webpack_require__(167);
+var ES5 = __webpack_require__(169);
 
 var hasRegExpMatcher = __webpack_require__(83);
 
@@ -6674,7 +9337,7 @@ module.exports = function isPrimitive(value) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(console) {
 
-var GetIntrinsic = __webpack_require__(36);
+var GetIntrinsic = __webpack_require__(35);
 
 var $TypeError = GetIntrinsic('%TypeError%');
 var $SyntaxError = GetIntrinsic('%SyntaxError%');
@@ -6936,7 +9599,7 @@ var ES = __webpack_require__(88);
 
 var implementation = __webpack_require__(89);
 var getPolyfill = __webpack_require__(90);
-var shim = __webpack_require__(174);
+var shim = __webpack_require__(176);
 
 var slice = Array.prototype.slice;
 
@@ -7103,13 +9766,13 @@ var _propTypes = __webpack_require__(1);
 
 var _and = _interopRequireDefault(__webpack_require__(13));
 
-var _between = _interopRequireDefault(__webpack_require__(35));
+var _between = _interopRequireDefault(__webpack_require__(34));
 
 var _nonNegativeInteger = _interopRequireDefault(__webpack_require__(95));
 
 var _object = _interopRequireDefault(__webpack_require__(99));
 
-var _withShape = _interopRequireDefault(__webpack_require__(42));
+var _withShape = _interopRequireDefault(__webpack_require__(41));
 
 var _typeOf = _interopRequireDefault(__webpack_require__(100));
 
@@ -7330,7 +9993,7 @@ exports["default"] = void 0;
 
 var _and = _interopRequireDefault(__webpack_require__(13));
 
-var _integer = _interopRequireDefault(__webpack_require__(41));
+var _integer = _interopRequireDefault(__webpack_require__(40));
 
 var _nonNegativeNumber = _interopRequireDefault(__webpack_require__(97));
 
@@ -7453,7 +10116,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _isPlainObject = _interopRequireDefault(__webpack_require__(38));
+var _isPlainObject = _interopRequireDefault(__webpack_require__(37));
 
 var _typeOf = _interopRequireDefault(__webpack_require__(100));
 
@@ -7780,11 +10443,11 @@ var _airbnbPropTypes = __webpack_require__(20);
 
 var _stylesheet = __webpack_require__(11);
 
-var _ResizingConstraintPropTypes = __webpack_require__(43);
+var _ResizingConstraintPropTypes = __webpack_require__(42);
 
 var _ResizeModePropTypes = __webpack_require__(105);
 
-var _ImageStylePropTypes = __webpack_require__(200);
+var _ImageStylePropTypes = __webpack_require__(202);
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -7927,15 +10590,108 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(6);
+var _designSystem = __webpack_require__(7);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
-var _Desktop = __webpack_require__(238);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// Element design, including an editable "txt"
+var RegularButton = function RegularButton(_ref) {
+  var txt = _ref.txt,
+      children = _ref.children;
+  return _react2['default'].createElement(
+    _reactSketchapp.View,
+    { style: {
+        alignSelf: 'flex-start',
+        flex: 1,
+        backgroundColor: _designSystem2['default'].colors.Orange,
+        paddingLeft: 36,
+        paddingRight: 36,
+        paddingBottom: 42,
+        paddingTop: 18,
+        borderRadius: 100,
+        minWidth: 120
+
+      } },
+    _react2['default'].createElement(
+      _reactSketchapp.Text,
+      { name: 'ButtonSymle', style: [_designSystem2['default'].fonts.AscendedButtonText, {
+          alignSelf: "center"
+        }] },
+      txt
+    )
+  );
+};
+
+// Here we export the element as "regularButton"
+// Importing the necessary dependencies
+exports['default'] = RegularButton;
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var React = _interopRequireWildcard(_react);
+
+var _reactSketchapp = __webpack_require__(5);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+var Label = function Label(_ref) {
+  var bold = _ref.bold,
+      children = _ref.children;
+  return React.createElement(
+    _reactSketchapp.Text,
+    {
+      style: {
+        color: '#333',
+        fontWeight: bold ? 'bold' : 'normal',
+        fontSize: 16,
+        lineHeight: 24
+      }
+    },
+    children
+  );
+};
+
+exports['default'] = Label;
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSketchapp = __webpack_require__(5);
+
+var _designSystem = __webpack_require__(7);
+
+var _designSystem2 = _interopRequireDefault(_designSystem);
+
+var _Desktop = __webpack_require__(45);
 
 var _Desktop2 = _interopRequireDefault(_Desktop);
 
-var _components = __webpack_require__(230);
+var _components = __webpack_require__(228);
 
 var _components2 = _interopRequireDefault(_components);
 
@@ -7952,7 +10708,7 @@ exports['default'] = function () {
 /* eslint-disable react/jsx-filename-extension, import/no-named-as-default-member */
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7973,8 +10729,8 @@ if (true) {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(25);
-var checkPropTypes = __webpack_require__(26);
+var _assign = __webpack_require__(24);
+var checkPropTypes = __webpack_require__(25);
 
 // TODO: this is special because it gets imported during build.
 
@@ -9861,10 +12617,10 @@ module.exports = react;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var prepareValue = __webpack_require__(109)
+var prepareValue = __webpack_require__(111)
 
 module.exports.toArray = __webpack_require__(47)
 module.exports.prepareStackTrace = __webpack_require__(46)
@@ -9874,7 +12630,7 @@ module.exports.prepareArray = prepareValue.prepareArray
 
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable no-not-accumulator-reassign/no-not-accumulator-reassign, no-var, vars-on-top, prefer-template, prefer-arrow-callback, func-names, prefer-destructuring, object-shorthand */
@@ -10051,11 +12807,11 @@ module.exports.prepareArray = prepareArray
 
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable no-not-accumulator-reassign/no-not-accumulator-reassign, no-var, vars-on-top, prefer-template, prefer-arrow-callback, func-names, prefer-destructuring, object-shorthand */
-var remoteWebview = __webpack_require__(111)
+var remoteWebview = __webpack_require__(113)
 
 module.exports.identifier = 'skpm.debugger'
 
@@ -10078,7 +12834,7 @@ module.exports.sendToDebugger = function sendToDebugger(name, payload) {
 
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports) {
 
 /* globals NSThread */
@@ -10104,7 +12860,7 @@ module.exports.sendToWebview = function sendToWebview (identifier, evalString) {
 
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports) {
 
 module.exports.SET_TREE = 'elements/SET_TREE'
@@ -10123,7 +12879,7 @@ module.exports.SET_SCRIPT_RESULT = 'playground/SET_SCRIPT_RESULT'
 
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10132,12 +12888,12 @@ module.exports.SET_SCRIPT_RESULT = 'playground/SET_SCRIPT_RESULT'
 if (false) {
   module.exports = require('./cjs/react-test-renderer.production.min.js');
 } else {
-  module.exports = __webpack_require__(114);
+  module.exports = __webpack_require__(116);
 }
 
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10158,11 +12914,11 @@ if (true) {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(25);
+var _assign = __webpack_require__(24);
 var React = __webpack_require__(0);
-var checkPropTypes = __webpack_require__(26);
-var tracing = __webpack_require__(115);
-var scheduler = __webpack_require__(117);
+var checkPropTypes = __webpack_require__(25);
+var tracing = __webpack_require__(117);
+var scheduler = __webpack_require__(119);
 
 /**
  * Use invariant() to assert state which your program assumes to be true.
@@ -23387,7 +26143,7 @@ module.exports = reactTestRenderer;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(8)["setTimeout"], __webpack_require__(8)["clearTimeout"]))
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23396,12 +26152,12 @@ module.exports = reactTestRenderer;
 if (false) {
   module.exports = require('./cjs/scheduler-tracing.production.min.js');
 } else {
-  module.exports = __webpack_require__(116);
+  module.exports = __webpack_require__(118);
 }
 
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23831,7 +26587,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23840,12 +26596,12 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 if (false) {
   module.exports = require('./cjs/scheduler.production.min.js');
 } else {
-  module.exports = __webpack_require__(118);
+  module.exports = __webpack_require__(120);
 }
 
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24549,10 +27305,10 @@ exports.unstable_getFirstCallbackNode = unstable_getFirstCallbackNode;
   })();
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)["setTimeout"], __webpack_require__(8)["clearTimeout"], __webpack_require__(28), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)["setTimeout"], __webpack_require__(8)["clearTimeout"], __webpack_require__(27), __webpack_require__(4)))
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24578,7 +27334,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @format
  */
 
-var CONSTANTS = __webpack_require__(120);
+var CONSTANTS = __webpack_require__(122);
 
 var Layout = function () {
   function Layout(left, right, top, bottom, width, height) {
@@ -24805,7 +27561,7 @@ module.exports = function (bind, lib) {
 };
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24921,7 +27677,7 @@ var CONSTANTS = {
 module.exports = CONSTANTS;
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, console, clearInterval, setTimeout, setInterval, Buffer) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, wrapper) {
@@ -34746,10 +37502,10 @@ module.exports = CONSTANTS;
   }run();
 });
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(122), __webpack_require__(4), __webpack_require__(52)["clearInterval"], __webpack_require__(8)["setTimeout"], __webpack_require__(52)["setInterval"], __webpack_require__(123).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(124), __webpack_require__(4), __webpack_require__(52)["clearInterval"], __webpack_require__(8)["setTimeout"], __webpack_require__(52)["setInterval"], __webpack_require__(125).Buffer))
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setTimeout, clearTimeout) {// shim for using process in browser
@@ -34940,7 +37696,7 @@ process.umask = function() { return 0; };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)["setTimeout"], __webpack_require__(8)["clearTimeout"]))
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34954,9 +37710,9 @@ process.umask = function() { return 0; };
 
 
 
-var base64 = __webpack_require__(124)
-var ieee754 = __webpack_require__(125)
-var isArray = __webpack_require__(126)
+var base64 = __webpack_require__(126)
+var ieee754 = __webpack_require__(127)
+var isArray = __webpack_require__(128)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -36734,10 +39490,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(28)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36895,7 +39651,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -36985,7 +39741,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 126 */
+/* 128 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -36996,7 +39752,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 127 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37007,11 +39763,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var yoga = __webpack_require__(29);
+var yoga = __webpack_require__(28);
 
-var _computeYogaNode2 = __webpack_require__(128);
+var _computeYogaNode2 = __webpack_require__(130);
 
-var _Context = __webpack_require__(30);
+var _Context = __webpack_require__(29);
 
 var _zIndex = __webpack_require__(65);
 
@@ -37050,7 +39806,7 @@ var _default = treeToNodes;
 exports.default = _default;
 
 /***/ }),
-/* 128 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37061,21 +39817,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exports.getStyles = void 0;
 
-var yoga = __webpack_require__(29);
+var yoga = __webpack_require__(28);
 
-var _Context = __webpack_require__(30);
+var _Context = __webpack_require__(29);
 
-var _createStringMeasurer = __webpack_require__(129);
+var _createStringMeasurer = __webpack_require__(131);
 
 var _hasAnyDefined = __webpack_require__(21);
 
-var _pick = __webpack_require__(31);
+var _pick = __webpack_require__(30);
 
 var _computeTextTree = __webpack_require__(54);
 
 var _constants = __webpack_require__(14);
 
-var _isNullOrUndefined = __webpack_require__(135);
+var _isNullOrUndefined = __webpack_require__(137);
 
 var _symbol = __webpack_require__(22);
 
@@ -37477,7 +40233,7 @@ var _default = computeYogaNode;
 exports.default = _default;
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37529,7 +40285,7 @@ var _default = createStringMeasurer;
 exports.default = _default;
 
 /***/ }),
-/* 130 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37729,7 +40485,7 @@ var _default = findFont;
 exports.default = _default;
 
 /***/ }),
-/* 131 */
+/* 133 */
 /***/ (function(module, exports) {
 
 /**
@@ -37781,7 +40537,7 @@ module.exports = function murmur2js(str) {
 
 
 /***/ }),
-/* 132 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37809,7 +40565,7 @@ var _default = sortObjectKeys;
 exports.default = _default;
 
 /***/ }),
-/* 133 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37829,7 +40585,7 @@ function getSketchVersion() {
 }
 
 /***/ }),
-/* 134 */
+/* 136 */
 /***/ (function(module, exports) {
 
 /*
@@ -38198,7 +40954,7 @@ module.exports = normalizeColor;
 
 
 /***/ }),
-/* 135 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38216,7 +40972,7 @@ var _default = function _default(value) {
 exports.default = _default;
 
 /***/ }),
-/* 136 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38451,7 +41207,7 @@ exports.isSuspense = isSuspense;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 137 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38464,11 +41220,11 @@ exports.isSuspense = isSuspense;
 
 
 
-var ReactIs = __webpack_require__(32);
-var assign = __webpack_require__(25);
+var ReactIs = __webpack_require__(31);
+var assign = __webpack_require__(24);
 
 var ReactPropTypesSecret = __webpack_require__(48);
-var checkPropTypes = __webpack_require__(26);
+var checkPropTypes = __webpack_require__(25);
 
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
 var printWarning = function() {};
@@ -39050,7 +41806,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 138 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39186,7 +41942,7 @@ var _default = function _default(style) {
 exports.default = _default;
 
 /***/ }),
-/* 139 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39238,22 +41994,22 @@ Object.defineProperty(exports, "symbolmaster", {
   }
 });
 
-var _ArtboardRenderer = __webpack_require__(140);
+var _ArtboardRenderer = __webpack_require__(142);
 
-var _ImageRenderer = __webpack_require__(142);
+var _ImageRenderer = __webpack_require__(144);
 
-var _SvgRenderer = __webpack_require__(143);
+var _SvgRenderer = __webpack_require__(145);
 
-var _TextRenderer = __webpack_require__(144);
+var _TextRenderer = __webpack_require__(146);
 
 var _ViewRenderer = __webpack_require__(58);
 
-var _SymbolInstanceRenderer = __webpack_require__(147);
+var _SymbolInstanceRenderer = __webpack_require__(149);
 
-var _SymbolMasterRenderer = __webpack_require__(148);
+var _SymbolMasterRenderer = __webpack_require__(150);
 
 /***/ }),
-/* 140 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39264,7 +42020,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
 var _SketchRenderer2 = __webpack_require__(15);
 
@@ -39327,7 +42083,7 @@ function (_SketchRenderer) {
 exports.default = ArtboardRenderer;
 
 /***/ }),
-/* 141 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39340,7 +42096,7 @@ exports.default = void 0;
 
 var _hacksForJSONImpl = __webpack_require__(9);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
 var layerGroup = function layerGroup(x, y, width, height, opacity, resizingConstraint) {
   return {
@@ -39385,7 +42141,7 @@ var _default = layerGroup;
 exports.default = _default;
 
 /***/ }),
-/* 142 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39404,9 +42160,9 @@ var _SketchRenderer2 = __webpack_require__(15);
 
 var _hacksForJSONImpl = __webpack_require__(9);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
-var _shapeLayers = __webpack_require__(33);
+var _shapeLayers = __webpack_require__(32);
 
 var _style = __webpack_require__(56);
 
@@ -39600,7 +42356,7 @@ function (_SketchRenderer) {
 exports.default = ImageRenderer;
 
 /***/ }),
-/* 143 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39732,7 +42488,7 @@ function (_ViewRenderer) {
 exports.default = SvgRenderer;
 
 /***/ }),
-/* 144 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39745,9 +42501,9 @@ exports.default = void 0;
 
 var _SketchRenderer2 = __webpack_require__(15);
 
-var _textLayers = __webpack_require__(145);
+var _textLayers = __webpack_require__(147);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
 var _TextStyles = __webpack_require__(59);
 
@@ -39824,7 +42580,7 @@ function (_SketchRenderer) {
 exports.default = TextRenderer;
 
 /***/ }),
-/* 145 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39837,7 +42593,7 @@ exports.default = void 0;
 
 var _hacksForJSONImpl = __webpack_require__(9);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
 var makeTextLayer = function makeTextLayer(frame, name, textNodes, resizingConstraint) {
   return {
@@ -39871,7 +42627,7 @@ var _default = makeTextLayer;
 exports.default = _default;
 
 /***/ }),
-/* 146 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39882,7 +42638,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var invariant = __webpack_require__(27);
+var invariant = __webpack_require__(26);
 
 var _sketchappJsonPlugin = __webpack_require__(17);
 
@@ -39961,7 +42717,7 @@ var _default = new TextStyles();
 exports.default = _default;
 
 /***/ }),
-/* 147 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39974,7 +42730,7 @@ exports.default = void 0;
 
 var _SketchRenderer2 = __webpack_require__(15);
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
 var _symbol = __webpack_require__(22);
 
@@ -40176,7 +42932,7 @@ function (_SketchRenderer) {
 exports.default = SymbolInstanceRenderer;
 
 /***/ }),
-/* 148 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40187,7 +42943,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _models = __webpack_require__(7);
+var _models = __webpack_require__(6);
 
 var _SketchRenderer2 = __webpack_require__(15);
 
@@ -40233,7 +42989,7 @@ function (_SketchRenderer) {
 exports.default = SymbolMasterRenderer;
 
 /***/ }),
-/* 149 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory) {
@@ -40242,7 +42998,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     /* istanbul ignore next */
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(150)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(152)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -40434,7 +43190,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 150 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory) {
@@ -40554,79 +43310,79 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 151 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _propTypesExact = _interopRequireDefault(__webpack_require__(152));
+var _propTypesExact = _interopRequireDefault(__webpack_require__(154));
 
 var _and = _interopRequireDefault(__webpack_require__(13));
 
-var _between = _interopRequireDefault(__webpack_require__(35));
+var _between = _interopRequireDefault(__webpack_require__(34));
 
-var _booleanSome = _interopRequireDefault(__webpack_require__(170));
+var _booleanSome = _interopRequireDefault(__webpack_require__(172));
 
-var _childrenHavePropXorChildren = _interopRequireDefault(__webpack_require__(171));
+var _childrenHavePropXorChildren = _interopRequireDefault(__webpack_require__(173));
 
-var _childrenOf = _interopRequireDefault(__webpack_require__(172));
+var _childrenOf = _interopRequireDefault(__webpack_require__(174));
 
-var _childrenOfType = _interopRequireDefault(__webpack_require__(173));
+var _childrenOfType = _interopRequireDefault(__webpack_require__(175));
 
-var _childrenSequenceOf = _interopRequireDefault(__webpack_require__(177));
+var _childrenSequenceOf = _interopRequireDefault(__webpack_require__(179));
 
-var _componentWithName = _interopRequireDefault(__webpack_require__(178));
+var _componentWithName = _interopRequireDefault(__webpack_require__(180));
 
-var _disallowedIf = _interopRequireDefault(__webpack_require__(179));
+var _disallowedIf = _interopRequireDefault(__webpack_require__(181));
 
-var _elementType = _interopRequireDefault(__webpack_require__(180));
+var _elementType = _interopRequireDefault(__webpack_require__(182));
 
-var _empty = _interopRequireDefault(__webpack_require__(181));
+var _empty = _interopRequireDefault(__webpack_require__(183));
 
 var _explicitNull = _interopRequireDefault(__webpack_require__(102));
 
-var _integer = _interopRequireDefault(__webpack_require__(41));
+var _integer = _interopRequireDefault(__webpack_require__(40));
 
-var _keysOf = _interopRequireDefault(__webpack_require__(182));
+var _keysOf = _interopRequireDefault(__webpack_require__(184));
 
-var _mutuallyExclusiveProps = _interopRequireDefault(__webpack_require__(183));
+var _mutuallyExclusiveProps = _interopRequireDefault(__webpack_require__(185));
 
-var _mutuallyExclusiveTrueProps = _interopRequireDefault(__webpack_require__(184));
+var _mutuallyExclusiveTrueProps = _interopRequireDefault(__webpack_require__(186));
 
-var _nChildren = _interopRequireDefault(__webpack_require__(185));
+var _nChildren = _interopRequireDefault(__webpack_require__(187));
 
 var _nonNegativeInteger = _interopRequireDefault(__webpack_require__(95));
 
 var _nonNegativeNumber = _interopRequireDefault(__webpack_require__(97));
 
-var _numericString = _interopRequireDefault(__webpack_require__(186));
+var _numericString = _interopRequireDefault(__webpack_require__(188));
 
 var _object = _interopRequireDefault(__webpack_require__(99));
 
 var _or = _interopRequireDefault(__webpack_require__(101));
 
-var _range = _interopRequireDefault(__webpack_require__(187));
+var _range = _interopRequireDefault(__webpack_require__(189));
 
-var _ref = _interopRequireDefault(__webpack_require__(188));
+var _ref = _interopRequireDefault(__webpack_require__(190));
 
-var _requiredBy = _interopRequireDefault(__webpack_require__(189));
+var _requiredBy = _interopRequireDefault(__webpack_require__(191));
 
-var _restrictedProp = _interopRequireDefault(__webpack_require__(190));
+var _restrictedProp = _interopRequireDefault(__webpack_require__(192));
 
 var _sequenceOf = _interopRequireDefault(__webpack_require__(94));
 
-var _shape = _interopRequireDefault(__webpack_require__(37));
+var _shape = _interopRequireDefault(__webpack_require__(36));
 
-var _stringStartsWith = _interopRequireDefault(__webpack_require__(191));
+var _stringStartsWith = _interopRequireDefault(__webpack_require__(193));
 
 var _uniqueArray = _interopRequireDefault(__webpack_require__(103));
 
-var _uniqueArrayOf = _interopRequireDefault(__webpack_require__(192));
+var _uniqueArrayOf = _interopRequireDefault(__webpack_require__(194));
 
 var _valuesOf = _interopRequireDefault(__webpack_require__(85));
 
-var _withShape = _interopRequireDefault(__webpack_require__(42));
+var _withShape = _interopRequireDefault(__webpack_require__(41));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -40669,7 +43425,7 @@ module.exports = {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 152 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 Object.defineProperty(exports, "__esModule", {
@@ -40731,7 +43487,7 @@ module.exports = exports['default'];
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 153 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40860,7 +43616,7 @@ module.exports = keysShim;
 
 
 /***/ }),
-/* 154 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40919,7 +43675,7 @@ module.exports = function bind(that) {
 
 
 /***/ }),
-/* 155 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40940,7 +43696,7 @@ module.exports = function shimAssign() {
 
 
 /***/ }),
-/* 156 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40950,7 +43706,7 @@ var define = __webpack_require__(10);
 
 var implementation = __webpack_require__(74);
 var getPolyfill = __webpack_require__(84);
-var shim = __webpack_require__(169);
+var shim = __webpack_require__(171);
 
 var polyfill = getPolyfill();
 
@@ -40964,17 +43720,17 @@ module.exports = polyfill;
 
 
 /***/ }),
-/* 157 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(158);
+module.exports = __webpack_require__(160);
 
 
 /***/ }),
-/* 158 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40997,17 +43753,17 @@ module.exports = ES2016;
 
 
 /***/ }),
-/* 159 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(160);
+module.exports = __webpack_require__(162);
 
 
 /***/ }),
-/* 160 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41017,8 +43773,8 @@ var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'sym
 
 var isPrimitive = __webpack_require__(76);
 var isCallable = __webpack_require__(23);
-var isDate = __webpack_require__(161);
-var isSymbol = __webpack_require__(162);
+var isDate = __webpack_require__(163);
+var isSymbol = __webpack_require__(164);
 
 var ordinaryToPrimitive = function OrdinaryToPrimitive(O, hint) {
 	if (typeof O === 'undefined' || O === null) {
@@ -41089,7 +43845,7 @@ module.exports = function ToPrimitive(input) {
 
 
 /***/ }),
-/* 161 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41116,14 +43872,14 @@ module.exports = function isDateObject(value) {
 
 
 /***/ }),
-/* 162 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var toStr = Object.prototype.toString;
-var hasSymbols = __webpack_require__(163)();
+var hasSymbols = __webpack_require__(165)();
 
 if (hasSymbols) {
 	var symToStr = Symbol.prototype.toString;
@@ -41158,7 +43914,7 @@ if (hasSymbols) {
 
 
 /***/ }),
-/* 163 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41176,10 +43932,10 @@ module.exports = function hasNativeSymbols() {
 	return hasSymbolSham();
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(28)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 164 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41426,10 +44182,10 @@ Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
 
 module.exports = Promise;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)["setTimeout"], __webpack_require__(165)["setImmediate"], __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)["setTimeout"], __webpack_require__(167)["setImmediate"], __webpack_require__(4)))
 
 /***/ }),
-/* 165 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* globals coscript, sketch */
@@ -41450,7 +44206,7 @@ module.exports = {
 
 
 /***/ }),
-/* 166 */
+/* 168 */
 /***/ (function(module, exports) {
 
 module.exports = function isPrimitive(value) {
@@ -41459,13 +44215,13 @@ module.exports = function isPrimitive(value) {
 
 
 /***/ }),
-/* 167 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(36);
+var GetIntrinsic = __webpack_require__(35);
 
 var $Object = GetIntrinsic('%Object%');
 var $TypeError = GetIntrinsic('%TypeError%');
@@ -41479,7 +44235,7 @@ var sign = __webpack_require__(81);
 var mod = __webpack_require__(82);
 
 var IsCallable = __webpack_require__(23);
-var toPrimitive = __webpack_require__(168);
+var toPrimitive = __webpack_require__(170);
 
 var has = __webpack_require__(16);
 
@@ -41701,7 +44457,7 @@ module.exports = ES5;
 
 
 /***/ }),
-/* 168 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41753,7 +44509,7 @@ module.exports = function ToPrimitive(input) {
 
 
 /***/ }),
-/* 169 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41774,7 +44530,7 @@ module.exports = function shimEntries() {
 
 
 /***/ }),
-/* 170 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41849,7 +44605,7 @@ function booleanSomeValidator() {
 //# sourceMappingURL=booleanSome.js.map
 
 /***/ }),
-/* 171 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41908,7 +44664,7 @@ function childrenHavePropXorChildren(prop) {
 //# sourceMappingURL=childrenHavePropXorChildren.js.map
 
 /***/ }),
-/* 172 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41919,7 +44675,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = childrenOf;
 
-var _renderableChildren = _interopRequireDefault(__webpack_require__(39));
+var _renderableChildren = _interopRequireDefault(__webpack_require__(38));
 
 var _wrapValidator = _interopRequireDefault(__webpack_require__(2));
 
@@ -41992,7 +44748,7 @@ function childrenOf(propType) {
 //# sourceMappingURL=childrenOf.js.map
 
 /***/ }),
-/* 173 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42005,9 +44761,9 @@ exports["default"] = void 0;
 
 var _arrayPrototype = _interopRequireDefault(__webpack_require__(87));
 
-var _getComponentName = _interopRequireDefault(__webpack_require__(40));
+var _getComponentName = _interopRequireDefault(__webpack_require__(39));
 
-var _renderableChildren = _interopRequireDefault(__webpack_require__(39));
+var _renderableChildren = _interopRequireDefault(__webpack_require__(38));
 
 var _wrapValidator = _interopRequireDefault(__webpack_require__(2));
 
@@ -42061,7 +44817,7 @@ exports["default"] = _default;
 //# sourceMappingURL=childrenOfType.js.map
 
 /***/ }),
-/* 174 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42084,7 +44840,7 @@ module.exports = function shimArrayPrototypeFind() {
 
 
 /***/ }),
-/* 175 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42095,7 +44851,7 @@ var bind = __webpack_require__(12);
 
 var implementation = __webpack_require__(91);
 var getPolyfill = __webpack_require__(93);
-var shim = __webpack_require__(176);
+var shim = __webpack_require__(178);
 
 var bound = bind.call(Function.call, implementation);
 
@@ -42109,7 +44865,7 @@ module.exports = bound;
 
 
 /***/ }),
-/* 176 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42151,7 +44907,7 @@ module.exports = function shimName() {
 
 
 /***/ }),
-/* 177 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42164,7 +44920,7 @@ exports["default"] = childrenSequenceOfValidator;
 
 var _sequenceOf = _interopRequireDefault(__webpack_require__(94));
 
-var _renderableChildren = _interopRequireDefault(__webpack_require__(39));
+var _renderableChildren = _interopRequireDefault(__webpack_require__(38));
 
 var _wrapValidator = _interopRequireDefault(__webpack_require__(2));
 
@@ -42228,7 +44984,7 @@ function childrenSequenceOfValidator() {
 //# sourceMappingURL=childrenSequenceOf.js.map
 
 /***/ }),
-/* 178 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42245,7 +45001,7 @@ var _isRegex = _interopRequireDefault(__webpack_require__(83));
 
 var _arrayPrototype = _interopRequireDefault(__webpack_require__(87));
 
-var _getComponentName = _interopRequireDefault(__webpack_require__(40));
+var _getComponentName = _interopRequireDefault(__webpack_require__(39));
 
 var _wrapValidator = _interopRequireDefault(__webpack_require__(2));
 
@@ -42363,7 +45119,7 @@ function componentWithName(name) {
 //# sourceMappingURL=componentWithName.js.map
 
 /***/ }),
-/* 179 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42437,7 +45193,7 @@ function disallowedIf(propType, otherPropName, otherPropType) {
 //# sourceMappingURL=disallowedIf.js.map
 
 /***/ }),
-/* 180 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42450,11 +45206,11 @@ exports["default"] = elementTypeValidator;
 
 var _propTypes = __webpack_require__(1);
 
-var _reactIs = __webpack_require__(32);
+var _reactIs = __webpack_require__(31);
 
 var _and = _interopRequireDefault(__webpack_require__(13));
 
-var _getComponentName = _interopRequireDefault(__webpack_require__(40));
+var _getComponentName = _interopRequireDefault(__webpack_require__(39));
 
 var _wrapValidator = _interopRequireDefault(__webpack_require__(2));
 
@@ -42514,7 +45270,7 @@ function elementTypeValidator(Type) {
 //# sourceMappingURL=elementType.js.map
 
 /***/ }),
-/* 181 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42531,7 +45287,7 @@ var _or = _interopRequireDefault(__webpack_require__(101));
 
 var _explicitNull = _interopRequireDefault(__webpack_require__(102));
 
-var _withShape = _interopRequireDefault(__webpack_require__(42));
+var _withShape = _interopRequireDefault(__webpack_require__(41));
 
 var _wrapValidator = _interopRequireDefault(__webpack_require__(2));
 
@@ -42554,7 +45310,7 @@ exports["default"] = _default;
 //# sourceMappingURL=empty.js.map
 
 /***/ }),
-/* 182 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42618,7 +45374,7 @@ function keysOfValidator(propType) {
 //# sourceMappingURL=keysOf.js.map
 
 /***/ }),
-/* 183 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42696,7 +45452,7 @@ function mutuallyExclusiveOfType(propType) {
 //# sourceMappingURL=mutuallyExclusiveProps.js.map
 
 /***/ }),
-/* 184 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42771,7 +45527,7 @@ function mutuallyExclusiveTrue() {
 //# sourceMappingURL=mutuallyExclusiveTrueProps.js.map
 
 /***/ }),
-/* 185 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42823,7 +45579,7 @@ function nChildren(n) {
 //# sourceMappingURL=nChildren.js.map
 
 /***/ }),
-/* 186 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42887,7 +45643,7 @@ exports["default"] = _default;
 //# sourceMappingURL=numericString.js.map
 
 /***/ }),
-/* 187 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42900,9 +45656,9 @@ exports["default"] = range;
 
 var _and = _interopRequireDefault(__webpack_require__(13));
 
-var _between = _interopRequireDefault(__webpack_require__(35));
+var _between = _interopRequireDefault(__webpack_require__(34));
 
-var _integer = _interopRequireDefault(__webpack_require__(41));
+var _integer = _interopRequireDefault(__webpack_require__(40));
 
 var _isInteger = _interopRequireDefault(__webpack_require__(96));
 
@@ -42938,7 +45694,7 @@ function range(min, max) {
 //# sourceMappingURL=range.js.map
 
 /***/ }),
-/* 188 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42951,7 +45707,7 @@ exports["default"] = void 0;
 
 var _react = __webpack_require__(0);
 
-var _isPlainObject = _interopRequireDefault(__webpack_require__(38));
+var _isPlainObject = _interopRequireDefault(__webpack_require__(37));
 
 var _wrapValidator = _interopRequireDefault(__webpack_require__(2));
 
@@ -43006,7 +45762,7 @@ exports["default"] = _default;
 //# sourceMappingURL=ref.js.map
 
 /***/ }),
-/* 189 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43061,7 +45817,7 @@ function getRequiredBy(requiredByPropName, propType) {
 //# sourceMappingURL=requiredBy.js.map
 
 /***/ }),
-/* 190 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43106,7 +45862,7 @@ exports["default"] = _default;
 //# sourceMappingURL=restrictedProp.js.map
 
 /***/ }),
-/* 191 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43167,7 +45923,7 @@ function stringStartsWithValidator(start) {
 //# sourceMappingURL=stringStartsWith.js.map
 
 /***/ }),
-/* 192 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43262,7 +46018,7 @@ function uniqueArrayOfTypeValidator(type) {
 //# sourceMappingURL=uniqueArrayOf.js.map
 
 /***/ }),
-/* 193 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43276,7 +46032,7 @@ var _default = {};
 exports.default = _default;
 
 /***/ }),
-/* 194 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43303,7 +46059,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 195 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43324,7 +46080,7 @@ var _default = Platform;
 exports.default = _default;
 
 /***/ }),
-/* 196 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43388,7 +46144,7 @@ _defineProperty(Document, "propTypes", {
 });
 
 /***/ }),
-/* 197 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43407,7 +46163,7 @@ var _airbnbPropTypes = __webpack_require__(20);
 
 var _stylesheet = __webpack_require__(11);
 
-var _PageStylePropTypes = __webpack_require__(198);
+var _PageStylePropTypes = __webpack_require__(200);
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -43479,7 +46235,7 @@ _defineProperty(Page, "propTypes", {
 });
 
 /***/ }),
-/* 198 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43493,7 +46249,7 @@ var _default = {};
 exports.default = _default;
 
 /***/ }),
-/* 199 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43573,7 +46329,7 @@ _defineProperty(Artboard, "defaultProps", {
 });
 
 /***/ }),
-/* 200 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43599,7 +46355,7 @@ var _default = _objectSpread({}, _ViewStylePropTypes.default, {
 exports.default = _default;
 
 /***/ }),
-/* 201 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43615,10 +46371,10 @@ Object.defineProperty(exports, "default", {
   }
 });
 
-var _Svg = __webpack_require__(202);
+var _Svg = __webpack_require__(204);
 
 /***/ }),
-/* 202 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43633,47 +46389,47 @@ var React = __webpack_require__(0);
 
 var PropTypes = __webpack_require__(1);
 
-var _View = __webpack_require__(44);
+var _View = __webpack_require__(43);
 
-var _Circle = __webpack_require__(203);
+var _Circle = __webpack_require__(205);
 
-var _ClipPath = __webpack_require__(204);
+var _ClipPath = __webpack_require__(206);
 
-var _Defs = __webpack_require__(205);
+var _Defs = __webpack_require__(207);
 
-var _Ellipse = __webpack_require__(206);
+var _Ellipse = __webpack_require__(208);
 
-var _G = __webpack_require__(207);
+var _G = __webpack_require__(209);
 
-var _Image = __webpack_require__(208);
+var _Image = __webpack_require__(210);
 
-var _Line = __webpack_require__(209);
+var _Line = __webpack_require__(211);
 
-var _LinearGradient = __webpack_require__(210);
+var _LinearGradient = __webpack_require__(212);
 
-var _Path = __webpack_require__(211);
+var _Path = __webpack_require__(213);
 
-var _Pattern = __webpack_require__(212);
+var _Pattern = __webpack_require__(214);
 
-var _Polygon = __webpack_require__(213);
+var _Polygon = __webpack_require__(215);
 
-var _Polyline = __webpack_require__(214);
+var _Polyline = __webpack_require__(216);
 
-var _RadialGradient = __webpack_require__(215);
+var _RadialGradient = __webpack_require__(217);
 
-var _Rect = __webpack_require__(216);
+var _Rect = __webpack_require__(218);
 
-var _Stop = __webpack_require__(217);
+var _Stop = __webpack_require__(219);
 
-var _Symbol2 = __webpack_require__(218);
+var _Symbol2 = __webpack_require__(220);
 
-var _Text = __webpack_require__(219);
+var _Text = __webpack_require__(221);
 
-var _TextPath = __webpack_require__(220);
+var _TextPath = __webpack_require__(222);
 
-var _TSpan = __webpack_require__(221);
+var _TSpan = __webpack_require__(223);
 
-var _Use = __webpack_require__(222);
+var _Use = __webpack_require__(224);
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -43785,7 +46541,7 @@ _defineProperty(Svg, "defaultProps", {
 });
 
 /***/ }),
-/* 203 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43867,7 +46623,7 @@ _defineProperty(Circle, "defaultProps", {
 });
 
 /***/ }),
-/* 204 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43934,7 +46690,7 @@ _defineProperty(ClipPath, "propTypes", {
 });
 
 /***/ }),
-/* 205 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43998,7 +46754,7 @@ _defineProperty(Defs, "propTypes", {
 });
 
 /***/ }),
-/* 206 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44082,7 +46838,7 @@ _defineProperty(Ellipse, "defaultProps", {
 });
 
 /***/ }),
-/* 207 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44154,7 +46910,7 @@ exports.default = G;
 _defineProperty(G, "propTypes", _objectSpread({}, _props.pathProps, _props.fontProps));
 
 /***/ }),
-/* 208 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44244,7 +47000,7 @@ _defineProperty(SVGImage, "defaultProps", {
 });
 
 /***/ }),
-/* 209 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44328,7 +47084,7 @@ _defineProperty(Line, "defaultProps", {
 });
 
 /***/ }),
-/* 210 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44415,7 +47171,7 @@ _defineProperty(LinearGradient, "defaultProps", {
 });
 
 /***/ }),
-/* 211 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44491,7 +47247,7 @@ _defineProperty(Path, "propTypes", _objectSpread({}, _props.pathProps, {
 }));
 
 /***/ }),
-/* 212 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44572,7 +47328,7 @@ _defineProperty(Pattern, "propTypes", {
 });
 
 /***/ }),
-/* 213 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44654,7 +47410,7 @@ _defineProperty(Polygon, "defaultProps", {
 });
 
 /***/ }),
-/* 214 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44734,7 +47490,7 @@ _defineProperty(Polyline, "defaultProps", {
 });
 
 /***/ }),
-/* 215 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44825,7 +47581,7 @@ _defineProperty(RadialGradient, "defaultProps", {
 });
 
 /***/ }),
-/* 216 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44913,7 +47669,7 @@ _defineProperty(Rect, "defaultProps", {
 });
 
 /***/ }),
-/* 217 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44994,7 +47750,7 @@ _defineProperty(Stop, "defaultProps", {
 });
 
 /***/ }),
-/* 218 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45069,7 +47825,7 @@ _defineProperty(_Symbol, "propTypes", {
 });
 
 /***/ }),
-/* 219 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45159,7 +47915,7 @@ _defineProperty(Text, "childContextTypes", {
 });
 
 /***/ }),
-/* 220 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45235,7 +47991,7 @@ _defineProperty(TextPath, "propTypes", _props.textPathProps);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 221 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45325,7 +48081,7 @@ _defineProperty(TSpan, "childContextTypes", {
 });
 
 /***/ }),
-/* 222 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45412,46 +48168,6 @@ _defineProperty(Use, "propTypes", _objectSpread({
   height: _props.numberProp
 }, _props.pathProps));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ }),
-/* 223 */,
-/* 224 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _chromaJs = __webpack_require__(225);
-
-var _chromaJs2 = _interopRequireDefault(_chromaJs);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var minimums = {
-  aa: 4.5,
-  aaLarge: 3,
-  aaa: 7,
-  aaaLarge: 4.5
-};
-/* eslint-disable import/no-extraneous-dependencies */
-
-exports['default'] = function (hex) {
-  var contrast = _chromaJs2['default'].contrast(hex, 'white');
-  return {
-    hex: hex,
-    contrast: contrast,
-    accessibility: {
-      aa: contrast >= minimums.aa,
-      aaLarge: contrast >= minimums.aaLarge,
-      aaa: contrast >= minimums.aaa,
-      aaaLarge: contrast >= minimums.aaaLarge
-    }
-  };
-};
 
 /***/ }),
 /* 225 */
@@ -48231,10 +50947,69 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.space = exports.spacing = exports.colors = undefined;
+
+var _colors$colors$spacin;
+
+var _processColor = __webpack_require__(44);
+
+var _processColor2 = _interopRequireDefault(_processColor);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Importing dependencies
+
+
+// Defyining Colors
+var colors = exports.colors = {
+  BrandColor: '#FF8C00',
+  BrandColorHover: '#FF8200',
+  Link: '#0055BB',
+  Green: '#7ED321',
+  Yellow: '#FFB800',
+  Orange: '#FF8C00',
+  Red: '#D0021B',
+  Black: '#000',
+  Gray1: '#666',
+  Gray2: '#999',
+  Gray3: '#CCC',
+  Gray4: '#E6E6E6',
+  Gray5: '#F5F5F5',
+  White: '#FFF',
+  Graphite: '#2D3540'
+};
+
+var spacing = exports.spacing = 4;
+
+var space = exports.space = {
+  xxxs: '4',
+  xxs: '8',
+  xs: '12',
+  s: '16',
+  m: '24',
+  l: '32',
+  xl: '48',
+  xxl: '96',
+  xxxl: '144'
+
+  // Exporting
+};exports['default'] = (_colors$colors$spacin = {
+  colors: Object.keys(colors).reduce(function (acc, name) {
+    return Object.assign({}, acc, _defineProperty({}, name, (0, _processColor2['default'])(colors[name])));
+  }, {})
+}, _defineProperty(_colors$colors$spacin, 'colors', colors), _defineProperty(_colors$colors$spacin, 'spacing', spacing), _defineProperty(_colors$colors$spacin, 'space', space), _colors$colors$spacin);
+
+/***/ }),
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48254,19 +51029,19 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(6);
+var _designSystem = __webpack_require__(7);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
-var _paymentBox = __webpack_require__(231);
+var _paymentBox = __webpack_require__(229);
 
 var _paymentBox2 = _interopRequireDefault(_paymentBox);
 
-var _buttonsBox = __webpack_require__(234);
+var _buttonsBox = __webpack_require__(233);
 
 var _buttonsBox2 = _interopRequireDefault(_buttonsBox);
 
-var _TypographyPage = __webpack_require__(237);
+var _TypographyPage = __webpack_require__(235);
 
 var _TypographyPage2 = _interopRequireDefault(_TypographyPage);
 
@@ -48274,15 +51049,15 @@ var _dsHeader = __webpack_require__(236);
 
 var _dsHeader2 = _interopRequireDefault(_dsHeader);
 
-var _Desktop = __webpack_require__(238);
+var _Desktop = __webpack_require__(45);
 
 var _Desktop2 = _interopRequireDefault(_Desktop);
 
-var _Section = __webpack_require__(245);
+var _Section = __webpack_require__(237);
 
 var _Section2 = _interopRequireDefault(_Section);
 
-var _TypeSpecimen = __webpack_require__(246);
+var _TypeSpecimen = __webpack_require__(238);
 
 var _TypeSpecimen2 = _interopRequireDefault(_TypeSpecimen);
 
@@ -48295,7 +51070,7 @@ var Components = function Components(_ref) {
     _reactSketchapp.Artboard,
     { name: 'Components', style: {
         width: 5000,
-        height: 3000,
+        height: 20200,
         padding: _designSystem2['default'].spacing * 10,
         backgroundColor: _designSystem2['default'].colors.GrayLine,
         flexDirection: 'row',
@@ -48305,21 +51080,26 @@ var Components = function Components(_ref) {
       _reactSketchapp.Artboard,
       { name: 'Typography', style: {
           width: 1280,
-          height: 900,
+          height: 20000,
           marginBottom: _designSystem2['default'].spacing * 4,
-          backgroundColor: _designSystem2['default'].colors.Background,
-          alignItems: 'center',
+          backgroundColor: _designSystem2['default'].colors.Gray,
+          alignItems: 'flex-start',
           justifyContent: 'top',
+
           margin: _designSystem2['default'].spacing * 10
 
         } },
       _react2['default'].createElement(_dsHeader2['default'], { logo: 'Typography' }),
       _react2['default'].createElement(
-        _Section2['default'],
-        { title: 'Heading' },
-        Object.keys(system.Heading).map(function (name) {
-          return _react2['default'].createElement(_TypeSpecimen2['default'], { key: name, name: name, style: _reactSketchapp.TextStyles.get(name) });
-        })
+        _reactSketchapp.View,
+        { style: { padding: 80 } },
+        _react2['default'].createElement(
+          _Section2['default'],
+          { title: 'Heading' },
+          Object.keys(system.Heading).map(function (name) {
+            return _react2['default'].createElement(_TypeSpecimen2['default'], { key: name, name: name, style: _reactSketchapp.TextStyles.get(name) });
+          })
+        )
       )
     ),
     _react2['default'].createElement(
@@ -48366,7 +51146,7 @@ var Components = function Components(_ref) {
 exports['default'] = Components;
 
 /***/ }),
-/* 231 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48382,23 +51162,23 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(6);
+var _designSystem = __webpack_require__(7);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
-var _input = __webpack_require__(45);
+var _input = __webpack_require__(230);
 
 var _input2 = _interopRequireDefault(_input);
 
-var _regularButton = __webpack_require__(24);
+var _regularButton = __webpack_require__(106);
 
 var _regularButton2 = _interopRequireDefault(_regularButton);
 
-var _providerHeader = __webpack_require__(232);
+var _providerHeader = __webpack_require__(231);
 
 var _providerHeader2 = _interopRequireDefault(_providerHeader);
 
-var _radio = __webpack_require__(233);
+var _radio = __webpack_require__(232);
 
 var _radio2 = _interopRequireDefault(_radio);
 
@@ -48433,7 +51213,7 @@ var PaymentBox = function PaymentBox(_ref) {
 exports['default'] = PaymentBox;
 
 /***/ }),
-/* 232 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48449,7 +51229,72 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(6);
+var _designSystem = __webpack_require__(7);
+
+var _designSystem2 = _interopRequireDefault(_designSystem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// Element design, including an editable placeholder
+var Input = function Input(_ref) {
+  var placeholder = _ref.placeholder,
+      label = _ref.label,
+      helper = _ref.helper;
+  return _react2['default'].createElement(
+    _reactSketchapp.View,
+    { style: {
+        marginBottom: 16,
+        marginTop: 16
+      } },
+    _react2['default'].createElement(
+      _reactSketchapp.Text,
+      { style: [_designSystem2['default'].fonts.Label, {}] },
+      label
+    ),
+    _react2['default'].createElement(
+      _reactSketchapp.View,
+      { style: {
+          borderStyle: 'solid',
+          borderColor: _designSystem2['default'].colors.GrayLine,
+          borderBottomWidth: 1,
+          paddingBottom: 3
+        } },
+      _react2['default'].createElement(
+        _reactSketchapp.Text,
+        { style: [_designSystem2['default'].fonts.Field, {}] },
+        placeholder
+      )
+    ),
+    _react2['default'].createElement(
+      _reactSketchapp.Text,
+      { style: [_designSystem2['default'].fonts.Label, {}] },
+      helper
+    )
+  );
+};
+
+// Here we export the element as "Input"
+// Importing the necessary dependencies
+exports['default'] = Input;
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSketchapp = __webpack_require__(5);
+
+var _designSystem = __webpack_require__(7);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48502,7 +51347,7 @@ var ProviderHeader = function ProviderHeader(_ref) {
 exports['default'] = ProviderHeader;
 
 /***/ }),
-/* 233 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48518,7 +51363,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(6);
+var _designSystem = __webpack_require__(7);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48577,7 +51422,7 @@ var Radio = function Radio(_ref) {
 exports['default'] = Radio;
 
 /***/ }),
-/* 234 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48593,15 +51438,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(6);
+var _designSystem = __webpack_require__(7);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
-var _regularButton = __webpack_require__(24);
+var _regularButton = __webpack_require__(106);
 
 var _regularButton2 = _interopRequireDefault(_regularButton);
 
-var _Buttons = __webpack_require__(235);
+var _Buttons = __webpack_require__(234);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -48637,7 +51482,7 @@ var ButtonsBox = function ButtonsBox() {
 exports['default'] = ButtonsBox;
 
 /***/ }),
-/* 235 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48654,7 +51499,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(6);
+var _designSystem = __webpack_require__(7);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48727,7 +51572,7 @@ var SimpleButtonAccent = exports.SimpleButtonAccent = function SimpleButtonAccen
   );
 };
 
-(0, _reactSketchapp.makeSymbol)(SimpleButtonAccent, 'Buttons/Simple/Accent');
+//makeSymbol(SimpleButtonAccent, 'Buttons/Simple/Accent');
 
 var SimpleButtonNormal = exports.SimpleButtonNormal = function SimpleButtonNormal() {
   return _react2['default'].createElement(
@@ -48755,12 +51600,50 @@ var SimpleButtonNormal = exports.SimpleButtonNormal = function SimpleButtonNorma
   );
 };
 
-(0, _reactSketchapp.makeSymbol)(SimpleButtonNormal, 'Buttons/Simple/Normal');
+//makeSymbol(SimpleButtonNormal, 'Buttons/Simple/Normal');
+
 
 // Here we export the element as "regularButton"
 exports['default'] = { SimpleButtonAccent: SimpleButtonAccent,
   SimpleButtonNormal: SimpleButtonNormal
 };
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSketchapp = __webpack_require__(5);
+
+var _Desktop = __webpack_require__(45);
+
+var _Desktop2 = _interopRequireDefault(_Desktop);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var TypographyPage = function TypographyPage() {
+  return _react2['default'].createElement(_reactSketchapp.View, { style: {
+      alignSelf: 'flex-start',
+      paddingTop: 60,
+      paddingRight: 80,
+      paddingBottom: 96,
+      paddingLeft: 96
+    } });
+};
+
+// Exporting
+// Dependencies
+exports['default'] = TypographyPage;
 
 /***/ }),
 /* 236 */
@@ -48779,7 +51662,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _designSystem = __webpack_require__(6);
+var _designSystem = __webpack_require__(7);
 
 var _designSystem2 = _interopRequireDefault(_designSystem);
 
@@ -48829,368 +51712,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _react = __webpack_require__(0);
 
-var _react2 = _interopRequireDefault(_react);
-
-var _reactSketchapp = __webpack_require__(5);
-
-var _Desktop = __webpack_require__(238);
-
-var _Desktop2 = _interopRequireDefault(_Desktop);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var TypographyPage = function TypographyPage() {
-  return _react2['default'].createElement(_reactSketchapp.View, { style: {
-      alignSelf: 'flex-start',
-      paddingTop: 60,
-      paddingRight: 80,
-      paddingBottom: 96,
-      paddingLeft: 96
-    } })
-
-  // <Section title="Type Styles">
-  // {Object.keys(system.fonts).map(name => (
-  //   <TypeSpecimen key={name} name={name} style={TextStyles.get(name)} />
-  // ))}
-  // </Section>
-
-
-  ;
-};
-
-// Exporting
-// Dependencies
-exports['default'] = TypographyPage;
-
-/***/ }),
-/* 238 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.HeadingRight = exports.HeadingCenter = exports.Heading = exports.Title = exports.colors = undefined;
-
-var _processColor = __webpack_require__(224);
-
-var _processColor2 = _interopRequireDefault(_processColor);
-
-var _pijma = __webpack_require__(239);
-
-var _pijma2 = _interopRequireDefault(_pijma);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Importing dependencies
-
-
-var colors = exports.colors = {
-  Haus: '#F3F4F4'
-};
-
-// Title
-var SizesTitle = [48, 56];
-var HeightTitle = [40, 48];
-
-// Heading
-var SizesHeading = [32, 28, 24, 20, 16];
-var LineHeightHeading = [36, 32, 28, 24, 20];
-
-// CAPTION 
-var SizesCaption = [14];
-var LineHeightCaption = [20];
-
-// Body
-var SizesBody = [20, 16, 14];
-var LineHeightBody = [32, 24, 20];
-var LineHeightBodyCompact = [28, 20, 16];
-
-var fontFamilies = {
-  'default': 'Museo Sans Cyrl'
-};
-
-var fontWeights = {
-  regular: '300',
-  bold: '500',
-  semiBold: '700',
-  extraBold: '900'
-};
-
-var Title = exports.Title = {
-  '1': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesTitle[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[0]
-  },
-  '2': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesTitle[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[1]
-  }
-};
-
-var Heading = exports.Heading = {
-  'H1': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[0]
-  },
-  'H2': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[1]
-  },
-  'H3': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[2],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[2]
-  },
-  'H4': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[3],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[3]
-  },
-  'H5': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[4],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[4]
-  }
-};
-
-var HeadingCenter = exports.HeadingCenter = {
-  'H1': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[0],
-    textAlign: 'center'
-  },
-  'H2': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[1],
-    textAlign: 'center'
-  },
-  'H3': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[2],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[2],
-    textAlign: 'center'
-  },
-  'H4': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[3],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[3],
-    textAlign: 'center'
-  },
-  'H5': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[4],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[4],
-    textAlign: 'center'
-  }
-};
-
-var HeadingRight = exports.HeadingRight = {
-  'H1': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[0],
-    textAlign: 'right'
-  },
-  'H2': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[1],
-    textAlign: 'right'
-  },
-  'H3': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[2],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[2],
-    textAlign: 'right'
-  },
-  'H4': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[3],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[3],
-    textAlign: 'right'
-  },
-  'H5': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[4],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: SizesHeading[4],
-    textAlign: 'right'
-  }
-};
-
-// Exporting
-exports['default'] = { colors: Object.keys(colors).reduce(function (acc, name) {
-    return Object.assign({}, acc, _defineProperty({}, name, (0, _processColor2['default'])(colors[name])));
-  }, {}),
-  Heading: Heading,
-  HeadingCenter: HeadingCenter,
-  HeadingRight: HeadingRight
-};
-
-/***/ }),
-/* 239 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.space = exports.spacing = exports.colors = undefined;
-
-var _colors$colors$spacin;
-
-var _processColor = __webpack_require__(224);
-
-var _processColor2 = _interopRequireDefault(_processColor);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Importing dependencies
-
-
-// Defyining Colors
-var colors = exports.colors = {
-  BrandColor: '#FF8C00',
-  BrandColorHover: '#FF8200',
-  Link: '#0055BB',
-  Green: '#7ED321',
-  Yellow: '#FFB800',
-  Orange: '#FF8C00',
-  Red: '#D0021B',
-  Black: '#000',
-  Gray1: '#666',
-  Gray2: '#999',
-  Gray3: '#CCC',
-  Gray4: '#E6E6E6',
-  Gray5: '#F5F5F5',
-  White: '#FFF',
-  Graphite: '#2D3540'
-};
-
-var spacing = exports.spacing = 4;
-
-var space = exports.space = {
-  xxxs: '4',
-  xxs: '8',
-  xs: '12',
-  s: '16',
-  m: '24',
-  l: '32',
-  xl: '48',
-  xxl: '96',
-  xxxl: '144'
-
-  // Exporting
-};exports['default'] = (_colors$colors$spacin = {
-  colors: Object.keys(colors).reduce(function (acc, name) {
-    return Object.assign({}, acc, _defineProperty({}, name, (0, _processColor2['default'])(colors[name])));
-  }, {})
-}, _defineProperty(_colors$colors$spacin, 'colors', colors), _defineProperty(_colors$colors$spacin, 'spacing', spacing), _defineProperty(_colors$colors$spacin, 'space', space), _colors$colors$spacin);
-
-/***/ }),
-/* 240 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
 var React = _interopRequireWildcard(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-var Label = function Label(_ref) {
-  var bold = _ref.bold,
-      children = _ref.children;
-  return React.createElement(
-    _reactSketchapp.Text,
-    {
-      style: {
-        color: '#333',
-        fontWeight: bold ? 'bold' : 'normal',
-        fontSize: 16,
-        lineHeight: 24
-      }
-    },
-    children
-  );
-};
-
-exports['default'] = Label;
-
-/***/ }),
-/* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var React = _interopRequireWildcard(_react);
-
-var _reactSketchapp = __webpack_require__(5);
-
-var _Label = __webpack_require__(240);
+var _Label = __webpack_require__(107);
 
 var _Label2 = _interopRequireDefault(_Label);
 
@@ -49223,7 +51749,7 @@ var Section = function Section(_ref) {
 exports['default'] = Section;
 
 /***/ }),
-/* 246 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49239,7 +51765,7 @@ var React = _interopRequireWildcard(_react);
 
 var _reactSketchapp = __webpack_require__(5);
 
-var _Label = __webpack_require__(240);
+var _Label = __webpack_require__(107);
 
 var _Label2 = _interopRequireDefault(_Label);
 

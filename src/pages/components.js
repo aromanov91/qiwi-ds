@@ -11,16 +11,16 @@ import ButtonsBox from '../component-pages/buttonsBox';
 import TypographyPage from '../component-pages/TypographyPage';
 import Header from '../components/header/ds-header';
 import typographyDesktop from '../components/typography/Desktop';
-import type { TypographyDesktop } from '../components/typography/Desktop';
+import type { Heading } from '../components/typography/Desktop';
 import Section from '../components/Section';
 import TypeSpecimen from '../components/TypeSpecimen';
 
 
-const Components = ({ system }: { system: TypographyDesktop }) => {
+const Components = ({ system }: { system: Heading }) => {
   return (
     <Artboard name="Components" style={{
       width: 5000,
-      height: 3000,
+      height: 20200,
       padding: designSystem.spacing * 10,
       backgroundColor: designSystem.colors.GrayLine,
       flexDirection: 'row',
@@ -29,20 +29,24 @@ const Components = ({ system }: { system: TypographyDesktop }) => {
 
     <Artboard name="Typography" style={{
       width: 1280,
-      height: 900,
+      height: 20000,
       marginBottom: designSystem.spacing * 4,
-      backgroundColor: designSystem.colors.Background,
-      alignItems: 'center',
+      backgroundColor: designSystem.colors.Gray,
+      alignItems: 'flex-start',
       justifyContent: 'top',
+      
       margin: designSystem.spacing * 10,
       
     }}>
       <Header logo = "Typography"></Header>
-      <Section title="Heading" >
-          {Object.keys(system.Heading).map(name => (
-            <TypeSpecimen key={name} name={name} style={TextStyles.get(name)} />
-          ))}
-      </Section>
+      <View style={{ padding: 80 }}>
+        <Section title="Heading" >
+            {Object.keys(system.Heading).map(name => (
+              <TypeSpecimen key={name} name={name} style={TextStyles.get(name)} />
+            ))}
+        </Section>
+      </View>
+
 
       {/* <TypographyPage></TypographyPage> */}
     </Artboard>

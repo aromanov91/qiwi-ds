@@ -66,7 +66,7 @@ export const SimpleButtonAccent = () => (
   </View>
 );
 
-makeSymbol(SimpleButtonAccent, 'Buttons/Simple/Accent');
+//makeSymbol(SimpleButtonAccent, 'Buttons/Simple/Accent');
 
 export const SimpleButtonNormal = () => (
   <View name="Button Base" style={{
@@ -90,7 +90,7 @@ export const SimpleButtonNormal = () => (
   </View>
 );
 
-makeSymbol(SimpleButtonNormal, 'Buttons/Simple/Normal');
+//makeSymbol(SimpleButtonNormal, 'Buttons/Simple/Normal');
 
 
 

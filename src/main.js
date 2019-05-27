@@ -17,7 +17,7 @@ export default () => {
     },
     typographyDesktop.Heading,
   );
-
+  
   render(<Components system={typographyDesktop} />, context.document.currentPage());
 
 }
