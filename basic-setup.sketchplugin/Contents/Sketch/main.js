@@ -4123,388 +4123,388 @@ var fontWeights = {
 
 var Heading = exports.Heading = (_Heading = {
 
-  'Title 1 / Default / Left / Desktop': {
+  'Title 1 / Default / Left': {
     color: _pijma2['default'].colors.Black,
     fontSize: SizesTitle[0],
     fontFamily: fontFamilies['default'],
     fontWeight: fontWeights.extraBold,
     lineHeight: HeightTitle[0]
   },
-  'Title 2 / Default / Left / Desktop': {
+  'Title 2 / Default / Left': {
     color: _pijma2['default'].colors.Black,
     fontSize: SizesTitle[1],
     fontFamily: fontFamilies['default'],
     fontWeight: fontWeights.extraBold,
     lineHeight: HeightTitle[1]
   }
-}, _defineProperty(_Heading, 'Title 2 / Default / Left / Desktop', {
+}, _defineProperty(_Heading, 'Title 2 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesTitle[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[1]
-}), _defineProperty(_Heading, 'Title 1 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'Title 1 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesTitle[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[0],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'Title 2 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'Title 2 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesTitle[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[1],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'Title 1 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'Title 1 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesTitle[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[0],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'Title 2 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'Title 2 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesTitle[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[1],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'Title 1 / Inverse / Left / Desktop', {
+}), _defineProperty(_Heading, 'Title 1 / Inverse / Left', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesTitle[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[0]
-}), _defineProperty(_Heading, 'Title 2 / Inverse / Left / Desktop', {
+}), _defineProperty(_Heading, 'Title 2 / Inverse / Left', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesTitle[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[1]
-}), _defineProperty(_Heading, 'Title 1 / Inverse / Center / Desktop', {
+}), _defineProperty(_Heading, 'Title 1 / Inverse / Center', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesTitle[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[0],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'Title 2 / Inverse / Center / Desktop', {
+}), _defineProperty(_Heading, 'Title 2 / Inverse / Center', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesTitle[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[1],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'Title 1 / Inverse / Right / Desktop', {
+}), _defineProperty(_Heading, 'Title 1 / Inverse / Right', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesTitle[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[0],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'Title 2 / Inverse / Right / Desktop', {
+}), _defineProperty(_Heading, 'Title 2 / Inverse / Right', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesTitle[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: HeightTitle[1],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H1 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H1 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[0]
-}), _defineProperty(_Heading, 'H2 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H2 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[1]
-}), _defineProperty(_Heading, 'H3 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H3 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[2]
-}), _defineProperty(_Heading, 'H4 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H4 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3]
-}), _defineProperty(_Heading, 'H5 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H5 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4]
-}), _defineProperty(_Heading, 'H1 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H1 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[0],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H2 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H2 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[1],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H3 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H3 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[2],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H4 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H4 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H5 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H5 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H1 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H1 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[0],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H2 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H2 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[1],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H3 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H3 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[2],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H4 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H4 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H5 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H5 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H1 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H1 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[0]
-}), _defineProperty(_Heading, 'H2 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H2 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[1]
-}), _defineProperty(_Heading, 'H3 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H3 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[2]
-}), _defineProperty(_Heading, 'H4 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H4 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3]
-}), _defineProperty(_Heading, 'H5 / Default / Left / Desktop', {
+}), _defineProperty(_Heading, 'H5 / Default / Left', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4]
-}), _defineProperty(_Heading, 'H1 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H1 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[0],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H2 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H2 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[1],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H3 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H3 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[2],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H4 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H4 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H5 / Default / Center / Desktop', {
+}), _defineProperty(_Heading, 'H5 / Default / Center', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H1 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H1 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[0],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H2 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H2 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[1],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H3 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H3 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[2],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H4 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H4 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H5 / Default / Right / Desktop', {
+}), _defineProperty(_Heading, 'H5 / Default / Right', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H1 / Inverse / Left / Desktop', {
+}), _defineProperty(_Heading, 'H1 / Inverse / Left', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[0]
-}), _defineProperty(_Heading, 'H2 / Inverse / Left / Desktop', {
+}), _defineProperty(_Heading, 'H2 / Inverse / Left', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[1]
-}), _defineProperty(_Heading, 'H3 / Inverse / Left / Desktop', {
+}), _defineProperty(_Heading, 'H3 / Inverse / Left', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[2]
-}), _defineProperty(_Heading, 'H4 / Inverse / Left / Desktop', {
+}), _defineProperty(_Heading, 'H4 / Inverse / Left', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3]
-}), _defineProperty(_Heading, 'H5 / Inverse / Left / Desktop', {
+}), _defineProperty(_Heading, 'H5 / Inverse / Left', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4]
-}), _defineProperty(_Heading, 'H1 / Inverse / Center / Desktop', {
+}), _defineProperty(_Heading, 'H1 / Inverse / Center', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[0],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H2 / Inverse / Center / Desktop', {
+}), _defineProperty(_Heading, 'H2 / Inverse / Center', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[1],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H3 / Inverse / Center / Desktop', {
+}), _defineProperty(_Heading, 'H3 / Inverse / Center', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[2],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H4 / Inverse / Center / Desktop', {
+}), _defineProperty(_Heading, 'H4 / Inverse / Center', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H5 / Inverse / Center / Desktop', {
+}), _defineProperty(_Heading, 'H5 / Inverse / Center', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4],
   textAlign: 'center'
-}), _defineProperty(_Heading, 'H1 / Inverse / Right / Desktop', {
+}), _defineProperty(_Heading, 'H1 / Inverse / Right', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[0],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H2 / Inverse / Right / Desktop', {
+}), _defineProperty(_Heading, 'H2 / Inverse / Right', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[1],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H3 / Inverse / Right / Desktop', {
+}), _defineProperty(_Heading, 'H3 / Inverse / Right', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
   lineHeight: LineHeightHeading[2],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H4 / Inverse / Right / Desktop', {
+}), _defineProperty(_Heading, 'H4 / Inverse / Right', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'right'
-}), _defineProperty(_Heading, 'H5 / Inverse / Right / Desktop', {
+}), _defineProperty(_Heading, 'H5 / Inverse / Right', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],

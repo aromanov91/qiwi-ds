@@ -39,21 +39,21 @@ const fontWeights = {
 
 export const Heading = {
 
-  'Title 1 / Default / Left / Desktop': {
+  'Title 1 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesTitle[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: HeightTitle[0],
   },
-  'Title 2 / Default / Left / Desktop': {
+  'Title 2 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesTitle[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: HeightTitle[1],
   },
-  'Title 2 / Default / Left / Desktop': {
+  'Title 2 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesTitle[1],
     fontFamily: fontFamilies.default,
@@ -64,7 +64,7 @@ export const Heading = {
 
   // ----------------------------------
 
-  'Title 1 / Default / Center / Desktop': {
+  'Title 1 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesTitle[0],
     fontFamily: fontFamilies.default,
@@ -72,7 +72,7 @@ export const Heading = {
     lineHeight: HeightTitle[0],
     textAlign: 'center'
   },
-  'Title 2 / Default / Center / Desktop': {
+  'Title 2 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesTitle[1],
     fontFamily: fontFamilies.default,
@@ -83,7 +83,7 @@ export const Heading = {
 
   // ---------------------------------
 
-  'Title 1 / Default / Right / Desktop': {
+  'Title 1 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesTitle[0],
     fontFamily: fontFamilies.default,
@@ -91,7 +91,7 @@ export const Heading = {
     lineHeight: HeightTitle[0],
     textAlign: 'right'
   },
-  'Title 2 / Default / Right / Desktop': {
+  'Title 2 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesTitle[1],
     fontFamily: fontFamilies.default,
@@ -102,14 +102,14 @@ export const Heading = {
 
   // Inverse ---------------------------
 
-  'Title 1 / Inverse / Left / Desktop': {
+  'Title 1 / Inverse / Left': {
     color: Pijma.colors.White,
     fontSize: SizesTitle[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: HeightTitle[0],
   },
-  'Title 2 / Inverse / Left / Desktop': {
+  'Title 2 / Inverse / Left': {
     color: Pijma.colors.White,
     fontSize: SizesTitle[1],
     fontFamily: fontFamilies.default,
@@ -119,7 +119,7 @@ export const Heading = {
 
   // ----------------------------------
 
-  'Title 1 / Inverse / Center / Desktop': {
+  'Title 1 / Inverse / Center': {
     color: Pijma.colors.White,
     fontSize: SizesTitle[0],
     fontFamily: fontFamilies.default,
@@ -127,7 +127,7 @@ export const Heading = {
     lineHeight: HeightTitle[0],
     textAlign: 'center'
   },
-  'Title 2 / Inverse / Center / Desktop': {
+  'Title 2 / Inverse / Center': {
     color: Pijma.colors.White,
     fontSize: SizesTitle[1],
     fontFamily: fontFamilies.default,
@@ -138,7 +138,7 @@ export const Heading = {
 
   // ---------------------------------
 
-  'Title 1 / Inverse / Right / Desktop': {
+  'Title 1 / Inverse / Right': {
     color: Pijma.colors.White,
     fontSize: SizesTitle[0],
     fontFamily: fontFamilies.default,
@@ -146,7 +146,7 @@ export const Heading = {
     lineHeight: HeightTitle[0],
     textAlign: 'right'
   },
-  'Title 2 / Inverse / Right / Desktop': {
+  'Title 2 / Inverse / Right': {
     color: Pijma.colors.White,
     fontSize: SizesTitle[1],
     fontFamily: fontFamilies.default,
@@ -159,35 +159,35 @@ export const Heading = {
   // Heading
   // ---------------------------------
 
-  'H1 / Default / Left / Desktop': {
+  'H1 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: LineHeightHeading[0],
   },
-  'H2 / Default / Left / Desktop': {
+  'H2 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: LineHeightHeading[1],
   },
-  'H3 / Default / Left / Desktop': {
+  'H3 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: LineHeightHeading[2],
   },
-  'H4 / Default / Left / Desktop': {
+  'H4 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
   },
-  'H5 / Default / Left / Desktop': {
+  'H5 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
@@ -197,7 +197,7 @@ export const Heading = {
   
   // ---------------------------------- 
 
-  'H1 / Default / Center / Desktop': {
+  'H1 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
@@ -205,7 +205,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[0],
     textAlign: 'center'
   },
-  'H2 / Default / Center / Desktop': {
+  'H2 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
@@ -213,7 +213,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[1],
     textAlign: 'center'
   },
-  'H3 / Default / Center / Desktop': {
+  'H3 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
@@ -221,7 +221,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[2],
     textAlign: 'center'
   },
-  'H4 / Default / Center / Desktop': {
+  'H4 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
@@ -229,7 +229,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[3],
     textAlign: 'center'
   },
-  'H5 / Default / Center / Desktop': {
+  'H5 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
@@ -240,7 +240,7 @@ export const Heading = {
 
   // ---------------------------------- 
 
-  'H1 / Default / Right / Desktop': {
+  'H1 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
@@ -248,7 +248,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[0],
     textAlign: 'right'
   },
-  'H2 / Default / Right / Desktop': {
+  'H2 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
@@ -256,7 +256,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[1],
     textAlign: 'right'
   },
-  'H3 / Default / Right / Desktop': {
+  'H3 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
@@ -264,7 +264,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[2],
     textAlign: 'right'
   },
-  'H4 / Default / Right / Desktop': {
+  'H4 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
@@ -272,7 +272,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[3],
     textAlign: 'right'
   },
-  'H5 / Default / Right / Desktop': {
+  'H5 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
@@ -281,35 +281,35 @@ export const Heading = {
     textAlign: 'right'
   },
 
-  'H1 / Default / Left / Desktop': {
+  'H1 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: LineHeightHeading[0],
   },
-  'H2 / Default / Left / Desktop': {
+  'H2 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: LineHeightHeading[1],
   },
-  'H3 / Default / Left / Desktop': {
+  'H3 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: LineHeightHeading[2],
   },
-  'H4 / Default / Left / Desktop': {
+  'H4 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
   },
-  'H5 / Default / Left / Desktop': {
+  'H5 / Default / Left': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
@@ -319,7 +319,7 @@ export const Heading = {
   
   // ---------------------------------- 
 
-  'H1 / Default / Center / Desktop': {
+  'H1 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
@@ -327,7 +327,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[0],
     textAlign: 'center'
   },
-  'H2 / Default / Center / Desktop': {
+  'H2 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
@@ -335,7 +335,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[1],
     textAlign: 'center'
   },
-  'H3 / Default / Center / Desktop': {
+  'H3 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
@@ -343,7 +343,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[2],
     textAlign: 'center'
   },
-  'H4 / Default / Center / Desktop': {
+  'H4 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
@@ -351,7 +351,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[3],
     textAlign: 'center'
   },
-  'H5 / Default / Center / Desktop': {
+  'H5 / Default / Center': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
@@ -362,7 +362,7 @@ export const Heading = {
 
   // ---------------------------------- 
 
-  'H1 / Default / Right / Desktop': {
+  'H1 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
@@ -370,7 +370,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[0],
     textAlign: 'right'
   },
-  'H2 / Default / Right / Desktop': {
+  'H2 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
@@ -378,7 +378,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[1],
     textAlign: 'right'
   },
-  'H3 / Default / Right / Desktop': {
+  'H3 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
@@ -386,7 +386,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[2],
     textAlign: 'right'
   },
-  'H4 / Default / Right / Desktop': {
+  'H4 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
@@ -394,7 +394,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[3],
     textAlign: 'right'
   },
-  'H5 / Default / Right / Desktop': {
+  'H5 / Default / Right': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
@@ -405,35 +405,35 @@ export const Heading = {
 
   //  White----------------------------------
 
-  'H1 / Inverse / Left / Desktop': {
+  'H1 / Inverse / Left': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: LineHeightHeading[0],
   },
-  'H2 / Inverse / Left / Desktop': {
+  'H2 / Inverse / Left': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: LineHeightHeading[1],
   },
-  'H3 / Inverse / Left / Desktop': {
+  'H3 / Inverse / Left': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.extraBold,
     lineHeight: LineHeightHeading[2],
   },
-  'H4 / Inverse / Left / Desktop': {
+  'H4 / Inverse / Left': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
   },
-  'H5 / Inverse / Left / Desktop': {
+  'H5 / Inverse / Left': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
@@ -443,7 +443,7 @@ export const Heading = {
   
   // ---------------------------------- 
 
-  'H1 / Inverse / Center / Desktop': {
+  'H1 / Inverse / Center': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
@@ -451,7 +451,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[0],
     textAlign: 'center'
   },
-  'H2 / Inverse / Center / Desktop': {
+  'H2 / Inverse / Center': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
@@ -459,7 +459,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[1],
     textAlign: 'center'
   },
-  'H3 / Inverse / Center / Desktop': {
+  'H3 / Inverse / Center': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
@@ -467,7 +467,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[2],
     textAlign: 'center'
   },
-  'H4 / Inverse / Center / Desktop': {
+  'H4 / Inverse / Center': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
@@ -475,7 +475,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[3],
     textAlign: 'center'
   },
-  'H5 / Inverse / Center / Desktop': {
+  'H5 / Inverse / Center': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
@@ -486,7 +486,7 @@ export const Heading = {
   
   // ---------------------------------- 
 
-  'H1 / Inverse / Right / Desktop': {
+  'H1 / Inverse / Right': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[0],
     fontFamily: fontFamilies.default,
@@ -494,7 +494,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[0],
     textAlign: 'right'
   },
-  'H2 / Inverse / Right / Desktop': {
+  'H2 / Inverse / Right': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[1],
     fontFamily: fontFamilies.default,
@@ -502,7 +502,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[1],
     textAlign: 'right'
   },
-  'H3 / Inverse / Right / Desktop': {
+  'H3 / Inverse / Right': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[2],
     fontFamily: fontFamilies.default,
@@ -510,7 +510,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[2],
     textAlign: 'right'
   },
-  'H4 / Inverse / Right / Desktop': {
+  'H4 / Inverse / Right': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
@@ -518,7 +518,7 @@ export const Heading = {
     lineHeight: LineHeightHeading[3],
     textAlign: 'right'
   },
-  'H5 / Inverse / Right / Desktop': {
+  'H5 / Inverse / Right': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
