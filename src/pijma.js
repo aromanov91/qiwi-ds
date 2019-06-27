@@ -7,7 +7,7 @@ export const colors = {
   BrandColor: '#FF8C00',
   BrandColorHover: '#FF8200',
   Link: '#0055BB',
-  Green: '#7ED321',
+  Green: '#4BBD5C',
   Yellow: '#FFB800',
   Orange: '#FF8C00',
   Red: '#D0021B',

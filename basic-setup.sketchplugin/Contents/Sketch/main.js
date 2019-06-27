@@ -4117,90 +4117,11 @@ var fontFamilies = {
 var fontWeights = {
   regular: '300',
   bold: '500',
-  semibold: '700',
+  semibold: '600',
   extraBold: '900'
 };
 
 var Heading = exports.Heading = (_Heading = {
-
-  'CAPTION / Default / Left': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: 'bold',
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5
-  },
-  'CAPTION / Default / Center': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'center'
-  },
-  'CAPTION / Default / Right': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'right'
-  },
-  'CAPTION / Support / Left': {
-    color: _pijma2['default'].colors.Gray1,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5
-  },
-  'CAPTION / Support / Center': {
-    color: _pijma2['default'].colors.Gray1,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'center'
-  },
-  'CAPTION / Support / Right': {
-    color: _pijma2['default'].colors.Gray1,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'right'
-  },
-  'CAPTION / Inverse / Left': {
-    color: _pijma2['default'].colors.White,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5
-  },
-  'CAPTION / Inverse / Center': {
-    color: _pijma2['default'].colors.White,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'center'
-  },
-  'CAPTION / Inverse / Right': {
-    color: _pijma2['default'].colors.White,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'right'
-  },
 
   'Title 1 / Default / Left / Desktop': {
     color: _pijma2['default'].colors.Black,
@@ -4215,228 +4136,82 @@ var Heading = exports.Heading = (_Heading = {
     fontFamily: fontFamilies['default'],
     fontWeight: fontWeights.extraBold,
     lineHeight: HeightTitle[1]
-  },
-
-  // ----------------------------------
-
-  'Title 1 / Default / Center / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesTitle[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[0],
-    textAlign: 'center'
-  },
-  'Title 2 / Default / Center / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesTitle[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[1],
-    textAlign: 'center'
-  },
-
-  // ---------------------------------
-
-  'Title 1 / Default / Right / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesTitle[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[0],
-    textAlign: 'right'
-  },
-  'Title 2 / Default / Right / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesTitle[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[1],
-    textAlign: 'right'
-  },
-
-  // Inverse ---------------------------
-
-  'Title 1 / Inverse / Left / Desktop': {
-    color: _pijma2['default'].colors.White,
-    fontSize: SizesTitle[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[0]
-  },
-  'Title 2 / Inverse / Left / Desktop': {
-    color: _pijma2['default'].colors.White,
-    fontSize: SizesTitle[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[1]
-  },
-
-  // ----------------------------------
-
-  'Title 1 / Inverse / Center / Desktop': {
-    color: _pijma2['default'].colors.White,
-    fontSize: SizesTitle[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[0],
-    textAlign: 'center'
-  },
-  'Title 2 / Inverse / Center / Desktop': {
-    color: _pijma2['default'].colors.White,
-    fontSize: SizesTitle[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[1],
-    textAlign: 'center'
-  },
-
-  // ---------------------------------
-
-  'Title 1 / Inverse / Right / Desktop': {
-    color: _pijma2['default'].colors.White,
-    fontSize: SizesTitle[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[0],
-    textAlign: 'right'
-  },
-  'Title 2 / Inverse / Right / Desktop': {
-    color: _pijma2['default'].colors.White,
-    fontSize: SizesTitle[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: HeightTitle[1],
-    textAlign: 'right'
-  },
-
-  // ---------------------------------
-  // Heading
-  // ---------------------------------
-
-  'H1 / Default / Left / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[0]
-  },
-  'H2 / Default / Left / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[1]
-  },
-  'H3 / Default / Left / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[2],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[2]
-  },
-  'H4 / Default / Left / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[3],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[3]
-  },
-  'H5 / Default / Left / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[4],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[4]
-  },
-
-  // ---------------------------------- 
-
-  'H1 / Default / Center / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[0],
-    textAlign: 'center'
-  },
-  'H2 / Default / Center / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[1],
-    textAlign: 'center'
-  },
-  'H3 / Default / Center / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[2],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[2],
-    textAlign: 'center'
-  },
-  'H4 / Default / Center / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[3],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[3],
-    textAlign: 'center'
-  },
-  'H5 / Default / Center / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[4],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[4],
-    textAlign: 'center'
-  },
-
-  // ---------------------------------- 
-
-  'H1 / Default / Right / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[0],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[0],
-    textAlign: 'right'
-  },
-  'H2 / Default / Right / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[1],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[1],
-    textAlign: 'right'
-  },
-  'H3 / Default / Right / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[2],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[2],
-    textAlign: 'right'
-  },
-  'H4 / Default / Right / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[3],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[3],
-    textAlign: 'right'
-  },
-  'H5 / Default / Right / Desktop': {
-    color: _pijma2['default'].colors.Black,
-    fontSize: SizesHeading[4],
-    fontFamily: fontFamilies['default'],
-    fontWeight: fontWeights.extraBold,
-    lineHeight: LineHeightHeading[4],
-    textAlign: 'right'
   }
-
-}, _defineProperty(_Heading, 'H1 / Default / Left / Desktop', {
+}, _defineProperty(_Heading, 'Title 2 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesTitle[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[1]
+}), _defineProperty(_Heading, 'Title 1 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesTitle[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Title 2 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesTitle[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Title 1 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesTitle[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Title 2 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesTitle[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Title 1 / Inverse / Left / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesTitle[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[0]
+}), _defineProperty(_Heading, 'Title 2 / Inverse / Left / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesTitle[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[1]
+}), _defineProperty(_Heading, 'Title 1 / Inverse / Center / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesTitle[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Title 2 / Inverse / Center / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesTitle[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'Title 1 / Inverse / Right / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesTitle[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'Title 2 / Inverse / Right / Desktop', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesTitle[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: HeightTitle[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H1 / Default / Left / Desktop', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[0],
   fontFamily: fontFamilies['default'],
@@ -4458,13 +4233,13 @@ var Heading = exports.Heading = (_Heading = {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3]
 }), _defineProperty(_Heading, 'H5 / Default / Left / Desktop', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4]
 }), _defineProperty(_Heading, 'H1 / Default / Center / Desktop', {
   color: _pijma2['default'].colors.Black,
@@ -4491,14 +4266,14 @@ var Heading = exports.Heading = (_Heading = {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'H5 / Default / Center / Desktop', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'H1 / Default / Right / Desktop', {
@@ -4526,14 +4301,114 @@ var Heading = exports.Heading = (_Heading = {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'H5 / Default / Right / Desktop', {
   color: _pijma2['default'].colors.Black,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightHeading[4],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H1 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[0],
+  fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[0]
+}), _defineProperty(_Heading, 'H2 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[1]
+}), _defineProperty(_Heading, 'H3 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[2]
+}), _defineProperty(_Heading, 'H4 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[3],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightHeading[3]
+}), _defineProperty(_Heading, 'H5 / Default / Left / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[4],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightHeading[4]
+}), _defineProperty(_Heading, 'H1 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[0],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H2 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[1],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H3 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[2],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H4 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[3],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightHeading[3],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H5 / Default / Center / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[4],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightHeading[4],
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'H1 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[0],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H2 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[1],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[1],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H3 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[2],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.extraBold,
+  lineHeight: LineHeightHeading[2],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H4 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[3],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightHeading[3],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'H5 / Default / Right / Desktop', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesHeading[4],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'H1 / Inverse / Left / Desktop', {
@@ -4558,13 +4433,13 @@ var Heading = exports.Heading = (_Heading = {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3]
 }), _defineProperty(_Heading, 'H5 / Inverse / Left / Desktop', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4]
 }), _defineProperty(_Heading, 'H1 / Inverse / Center / Desktop', {
   color: _pijma2['default'].colors.White,
@@ -4591,14 +4466,14 @@ var Heading = exports.Heading = (_Heading = {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'H5 / Inverse / Center / Desktop', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'H1 / Inverse / Right / Desktop', {
@@ -4626,15 +4501,84 @@ var Heading = exports.Heading = (_Heading = {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[3],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[3],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'H5 / Inverse / Right / Desktop', {
   color: _pijma2['default'].colors.White,
   fontSize: SizesHeading[4],
   fontFamily: fontFamilies['default'],
-  fontWeight: fontWeights.extraBold,
+  fontWeight: fontWeights.semibold,
   lineHeight: LineHeightHeading[4],
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'CAPTION / Default / Left', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesCaption[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightCaption[0],
+  letterSpacing: 1.5
+}), _defineProperty(_Heading, 'CAPTION / Default / Center', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesCaption[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightCaption[0],
+  letterSpacing: 1.5,
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'CAPTION / Default / Right', {
+  color: _pijma2['default'].colors.Black,
+  fontSize: SizesCaption[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightCaption[0],
+  letterSpacing: 1.5,
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'CAPTION / Support / Left', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesCaption[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightCaption[0],
+  letterSpacing: 1.5
+}), _defineProperty(_Heading, 'CAPTION / Support / Center', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesCaption[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightCaption[0],
+  letterSpacing: 1.5,
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'CAPTION / Support / Right', {
+  color: _pijma2['default'].colors.Gray1,
+  fontSize: SizesCaption[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightCaption[0],
+  letterSpacing: 1.5,
+  textAlign: 'right'
+}), _defineProperty(_Heading, 'CAPTION / Inverse / Left', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesCaption[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightCaption[0],
+  letterSpacing: 1.5
+}), _defineProperty(_Heading, 'CAPTION / Inverse / Center', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesCaption[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightCaption[0],
+  letterSpacing: 1.5,
+  textAlign: 'center'
+}), _defineProperty(_Heading, 'CAPTION / Inverse / Right', {
+  color: _pijma2['default'].colors.White,
+  fontSize: SizesCaption[0],
+  fontFamily: fontFamilies['default'],
+  fontWeight: fontWeights.semibold,
+  lineHeight: LineHeightCaption[0],
+  letterSpacing: 1.5,
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body L / Default / Bold / Normal / Left', {
   color: _pijma2['default'].colors.Black,
@@ -6077,240 +6021,240 @@ var Heading = exports.Heading = (_Heading = {
   lineHeight: LineHeightBodyCompact[2],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body L / Warning / Bold / Normal / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBody[0]
 }), _defineProperty(_Heading, 'Body M / Warning / Bold / Normal / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBody[1]
 }), _defineProperty(_Heading, 'Body S / Warning / Bold / Normal / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBody[2]
 }), _defineProperty(_Heading, 'Body L / Warning / Bold / Normal / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBody[0],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body M / Warning / Bold / Normal / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBody[1],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body S / Warning / Bold / Normal / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBody[2],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body L / Warning / Bold / Normal / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBody[0],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body M / Warning / Bold / Normal / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBody[1],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body S / Warning / Bold / Normal / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBody[2],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body L / Warning / Regular / Normal / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBody[0]
 }), _defineProperty(_Heading, 'Body M / Warning / Regular / Normal / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBody[1]
 }), _defineProperty(_Heading, 'Body S / Warning / Regular / Normal / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBody[2]
 }), _defineProperty(_Heading, 'Body L / Warning / Regular / Normal / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBody[0],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body M / Warning / Regular / Normal / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBody[1],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body S / Warning / Regular / Normal / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBody[2],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body L / Warning / Regular / Normal / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBody[0],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body M / Warning / Regular / Normal / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBody[1],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body S / Warning / Regular / Normal / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBody[2],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body L / Warning / Bold / Compact / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBodyCompact[0]
 }), _defineProperty(_Heading, 'Body M / Warning / Bold / Compact / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBodyCompact[1]
 }), _defineProperty(_Heading, 'Body S / Warning / Bold / Compact / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBodyCompact[2]
 }), _defineProperty(_Heading, 'Body L / Warning / Bold / Compact / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBodyCompact[0],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body M / Warning / Bold / Compact / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBodyCompact[1],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body S / Warning / Bold / Compact / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBodyCompact[2],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body L / Warning / Bold / Compact / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBodyCompact[0],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body M / Warning / Bold / Compact / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBodyCompact[1],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body S / Warning / Bold / Compact / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.bold,
   lineHeight: LineHeightBodyCompact[2],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body L / Warning / Regular / Compact / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBodyCompact[0]
 }), _defineProperty(_Heading, 'Body M / Warning / Regular / Compact / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBodyCompact[1]
 }), _defineProperty(_Heading, 'Body S / Warning / Regular / Compact / Left', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBodyCompact[2]
 }), _defineProperty(_Heading, 'Body L / Warning / Regular / Compact / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBodyCompact[0],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body M / Warning / Regular / Compact / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBodyCompact[1],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body S / Warning / Regular / Compact / Center', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBodyCompact[2],
   textAlign: 'center'
 }), _defineProperty(_Heading, 'Body L / Warning / Regular / Compact / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[0],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBodyCompact[0],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body M / Warning / Regular / Compact / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[1],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
   lineHeight: LineHeightBodyCompact[1],
   textAlign: 'right'
 }), _defineProperty(_Heading, 'Body S / Warning / Regular / Compact / Right', {
-  color: _pijma2['default'].colors.Yellow,
+  color: _pijma2['default'].colors.Orange,
   fontSize: SizesBody[2],
   fontFamily: fontFamilies['default'],
   fontWeight: fontWeights.regular,
@@ -50974,7 +50918,7 @@ var colors = exports.colors = {
   BrandColor: '#FF8C00',
   BrandColorHover: '#FF8200',
   Link: '#0055BB',
-  Green: '#7ED321',
+  Green: '#4BBD5C',
   Yellow: '#FFB800',
   Orange: '#FF8C00',
   Red: '#D0021B',

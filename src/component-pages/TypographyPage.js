@@ -13,13 +13,7 @@ const TypographyPage = () => (
     paddingLeft: 96,
   }}>
   </View>
-
-
 );
-
-
-
-
 
 // Exporting
 export default TypographyPage;

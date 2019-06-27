@@ -33,91 +33,11 @@ const fontFamilies = {
 const fontWeights = {
   regular: '300',
   bold: '500',
-  semibold: '700',
+  semibold: '600',
   extraBold: '900',
 };
 
 export const Heading = {
-
-  'CAPTION / Default / Left': {
-    color: Pijma.colors.Black,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies.default,
-    fontWeight: 'bold',
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-  },
-  'CAPTION / Default / Center': {
-    color: Pijma.colors.Black,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'center'
-  },
-  'CAPTION / Default / Right': {
-    color: Pijma.colors.Black,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'right'
-  },
-  'CAPTION / Support / Left': {
-    color: Pijma.colors.Gray1,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-  },
-  'CAPTION / Support / Center': {
-    color: Pijma.colors.Gray1,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'center'
-  },
-  'CAPTION / Support / Right': {
-    color: Pijma.colors.Gray1,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'right'
-  },
-  'CAPTION / Inverse / Left': {
-    color: Pijma.colors.White,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-  },
-  'CAPTION / Inverse / Center': {
-    color: Pijma.colors.White,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'center'
-  },
-  'CAPTION / Inverse / Right': {
-    color: Pijma.colors.White,
-    fontSize: SizesCaption[0],
-    fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.semibold,
-    lineHeight: LineHeightCaption[0],
-    letterSpacing: 1.5,
-    textAlign: 'right'
-  },
-  
 
   'Title 1 / Default / Left / Desktop': {
     color: Pijma.colors.Black,
@@ -133,6 +53,14 @@ export const Heading = {
     fontWeight: fontWeights.extraBold,
     lineHeight: HeightTitle[1],
   },
+  'Title 2 / Default / Left / Desktop': {
+    color: Pijma.colors.Black,
+    fontSize: SizesTitle[1],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.extraBold,
+    lineHeight: HeightTitle[1],
+  },
+
 
   // ----------------------------------
 
@@ -256,14 +184,14 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
   },
   'H5 / Default / Left / Desktop': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[4],
   },
   
@@ -297,7 +225,7 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
     textAlign: 'center'
   },
@@ -305,7 +233,7 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[4],
     textAlign: 'center'
   },
@@ -340,7 +268,7 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
     textAlign: 'right'
   },
@@ -348,7 +276,7 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[4],
     textAlign: 'right'
   },
@@ -378,14 +306,14 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
   },
   'H5 / Default / Left / Desktop': {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[4],
   },
   
@@ -419,7 +347,7 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
     textAlign: 'center'
   },
@@ -427,7 +355,7 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[4],
     textAlign: 'center'
   },
@@ -462,7 +390,7 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
     textAlign: 'right'
   },
@@ -470,7 +398,7 @@ export const Heading = {
     color: Pijma.colors.Black,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[4],
     textAlign: 'right'
   },
@@ -502,14 +430,14 @@ export const Heading = {
     color: Pijma.colors.White,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
   },
   'H5 / Inverse / Left / Desktop': {
     color: Pijma.colors.White,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[4],
   },
   
@@ -543,7 +471,7 @@ export const Heading = {
     color: Pijma.colors.White,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
     textAlign: 'center'
   },
@@ -551,7 +479,7 @@ export const Heading = {
     color: Pijma.colors.White,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[4],
     textAlign: 'center'
   },
@@ -586,7 +514,7 @@ export const Heading = {
     color: Pijma.colors.White,
     fontSize: SizesHeading[3],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[3],
     textAlign: 'right'
   },
@@ -594,8 +522,88 @@ export const Heading = {
     color: Pijma.colors.White,
     fontSize: SizesHeading[4],
     fontFamily: fontFamilies.default,
-    fontWeight: fontWeights.extraBold,
+    fontWeight: fontWeights.semibold,
     lineHeight: LineHeightHeading[4],
+    textAlign: 'right'
+  },
+
+
+  'CAPTION / Default / Left': {
+    color: Pijma.colors.Black,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+  },
+  'CAPTION / Default / Center': {
+    color: Pijma.colors.Black,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'center'
+  },
+  'CAPTION / Default / Right': {
+    color: Pijma.colors.Black,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'right'
+  },
+  'CAPTION / Support / Left': {
+    color: Pijma.colors.Gray1,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+  },
+  'CAPTION / Support / Center': {
+    color: Pijma.colors.Gray1,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'center'
+  },
+  'CAPTION / Support / Right': {
+    color: Pijma.colors.Gray1,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'right'
+  },
+  'CAPTION / Inverse / Left': {
+    color: Pijma.colors.White,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+  },
+  'CAPTION / Inverse / Center': {
+    color: Pijma.colors.White,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
+    textAlign: 'center'
+  },
+  'CAPTION / Inverse / Right': {
+    color: Pijma.colors.White,
+    fontSize: SizesCaption[0],
+    fontFamily: fontFamilies.default,
+    fontWeight: fontWeights.semibold,
+    lineHeight: LineHeightCaption[0],
+    letterSpacing: 1.5,
     textAlign: 'right'
   },
 
@@ -2353,28 +2361,28 @@ export const Heading = {
   // ------------------------------------------------------------
 
   'Body L / Warning / Bold / Normal / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
     lineHeight: LineHeightBody[0],
   },
   'Body M / Warning / Bold / Normal / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
     lineHeight: LineHeightBody[1],
   },
   'Body S / Warning / Bold / Normal / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
     lineHeight: LineHeightBody[2],
   },
   'Body L / Warning / Bold / Normal / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2382,7 +2390,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body M / Warning / Bold / Normal / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2390,7 +2398,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body S / Warning / Bold / Normal / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2398,7 +2406,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body L / Warning / Bold / Normal / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2406,7 +2414,7 @@ export const Heading = {
     textAlign: 'right'
   },
   'Body M / Warning / Bold / Normal / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2414,7 +2422,7 @@ export const Heading = {
     textAlign: 'right'
   },
   'Body S / Warning / Bold / Normal / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2425,28 +2433,28 @@ export const Heading = {
   // --------------------------------
   
   'Body L / Warning / Regular / Normal / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
     lineHeight: LineHeightBody[0],
   },
   'Body M / Warning / Regular / Normal / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
     lineHeight: LineHeightBody[1],
   },
   'Body S / Warning / Regular / Normal / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
     lineHeight: LineHeightBody[2],
   },
   'Body L / Warning / Regular / Normal / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2454,7 +2462,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body M / Warning / Regular / Normal / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2462,7 +2470,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body S / Warning / Regular / Normal / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2471,7 +2479,7 @@ export const Heading = {
   },
 
   'Body L / Warning / Regular / Normal / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2479,7 +2487,7 @@ export const Heading = {
     textAlign: 'right'
   },
   'Body M / Warning / Regular / Normal / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2487,7 +2495,7 @@ export const Heading = {
     textAlign: 'right'
   },
   'Body S / Warning / Regular / Normal / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2498,28 +2506,28 @@ export const Heading = {
   // Body Compact --------------------------
 
   'Body L / Warning / Bold / Compact / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
     lineHeight: LineHeightBodyCompact[0],
   },
   'Body M / Warning / Bold / Compact / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
     lineHeight: LineHeightBodyCompact[1],
   },
   'Body S / Warning / Bold / Compact / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
     lineHeight: LineHeightBodyCompact[2],
   },
   'Body L / Warning / Bold / Compact / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2527,7 +2535,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body M / Warning / Bold / Compact / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2535,7 +2543,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body S / Warning / Bold / Compact / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2543,7 +2551,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body L / Warning / Bold / Compact / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2551,7 +2559,7 @@ export const Heading = {
     textAlign: 'right'
   },
   'Body M / Warning / Bold / Compact / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2559,7 +2567,7 @@ export const Heading = {
     textAlign: 'right'
   },
   'Body S / Warning / Bold / Compact / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.bold,
@@ -2570,28 +2578,28 @@ export const Heading = {
   // --------------------------------
   
   'Body L / Warning / Regular / Compact / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
     lineHeight: LineHeightBodyCompact[0],
   },
   'Body M / Warning / Regular / Compact / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
     lineHeight: LineHeightBodyCompact[1],
   },
   'Body S / Warning / Regular / Compact / Left': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
     lineHeight: LineHeightBodyCompact[2],
   },
   'Body L / Warning / Regular / Compact / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2599,7 +2607,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body M / Warning / Regular / Compact / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2607,7 +2615,7 @@ export const Heading = {
     textAlign: 'center'
   },
   'Body S / Warning / Regular / Compact / Center': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2616,7 +2624,7 @@ export const Heading = {
   },
 
   'Body L / Warning / Regular / Compact / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[0],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2624,7 +2632,7 @@ export const Heading = {
     textAlign: 'right'
   },
   'Body M / Warning / Regular / Compact / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[1],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
@@ -2632,7 +2640,7 @@ export const Heading = {
     textAlign: 'right'
   },
   'Body S / Warning / Regular / Compact / Right': {
-    color: Pijma.colors.Yellow,
+    color: Pijma.colors.Orange,
     fontSize: SizesBody[2],
     fontFamily: fontFamilies.default,
     fontWeight: fontWeights.regular,
