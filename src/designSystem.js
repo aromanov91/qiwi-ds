@@ -12,6 +12,7 @@ export const colors = {
   Gray: '#999',
   GrayLine: '#CCC',
   GrayDivider: '#E6E6E6',
+  GrayDark: '#333',
   Orange: '#FF8C00',
   Link: '#0055BB',
   Success: '#4BBD5C',
@@ -158,7 +159,7 @@ export const fonts = {
     fontWeight: fontWeights.semiBold,
     lineHeight: 24,
   },
-  
+
 };
 
 export const shadows = {
